@@ -8,7 +8,7 @@ Follow the instructions:
  - `npm run prepare`
  - replase content in the `husky/_/pre-commit` file with: 
 ```
- #!/usr/bin/env sh
+#!/usr/bin/env sh
 . "$(dirname -- "$0")/"
 cd ./pet-finder && npx lint-staged
 ```
