@@ -6,11 +6,16 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "lint": "eslint src/ --fix --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "prettier-fix": "prettier . --write",
-    "lint:test": "eslint --debug src/",
-    "lint:test-write": "eslint --debug src/ --fix"
+    "prettier-fix": "prettier src/ --write"
+  },
+  "lint-staged": {
+    "*.(ts|tsx)": [
+      "npm run prettier-fix",
+      "npm run lint",
+      "git add"
+    ]
   },
   "dependencies": {
     "react": "^18.2.0",
@@ -29,6 +34,7 @@
     "eslint-plugin-jsx-a11y": "^6.8.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
+    "lint-staged": "^15.2.2",
     "prettier": "3.2.5",
     "typescript": "^5.2.2",
     "vite": "^5.2.0"
