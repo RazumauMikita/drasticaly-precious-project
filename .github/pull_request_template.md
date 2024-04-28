@@ -6,4 +6,5 @@
 - [ ] 🧑‍💻 Code Refactor
 - [ ] ✅ Test
 - [ ] ⏩ Revert
+- [ ] 🛠️ Enviroment
 # Description
