@@ -20,3 +20,9 @@ npm install && npm run prepare
 . "$(dirname -- "$0")/"
 cd ./pet-finder && npx lint-staged
 ```
+ - replase content in the `husky/_/pre-push` file with: 
+```
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/"
+cd ./pet-finder && npm run test
+```
