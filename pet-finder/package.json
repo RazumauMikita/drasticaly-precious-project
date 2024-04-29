@@ -15,7 +15,8 @@
   "lint-staged": {
     "*.(ts|tsx)": [
       "npm run lint",
-      "npm run prettier-fix"
+      "npm run prettier-fix",
+      "npm add ."
     ]
   },
   "dependencies": {
