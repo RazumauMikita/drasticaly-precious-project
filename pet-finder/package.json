@@ -15,8 +15,7 @@
   "lint-staged": {
     "*.(ts|tsx)": [
       "npm run lint",
-      "npm run prettier-fix",
-      "npm add ."
+      "npm run prettier-fix"
     ]
   },
   "dependencies": {
@@ -46,6 +45,7 @@
     "jest-environment-jsdom": "^29.7.0",
     "lint-staged": "^15.2.2",
     "prettier": "3.2.5",
+    "sass": "^1.76.0",
     "ts-jest": "^29.1.2",
     "ts-jest-mock-import-meta": "^1.2.0",
     "typescript": "^5.2.2",
