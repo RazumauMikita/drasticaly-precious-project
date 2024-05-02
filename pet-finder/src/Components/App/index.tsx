@@ -5,16 +5,22 @@ import { MainLayout } from '../../Layouts/MainLayout'
 import { HomePage } from '../../Pages/HomePage'
 import { ContentPage } from '../../Pages/ContentPage'
 import { NotFoundPage } from '../../Pages/NotFoundPage'
+import { LoginPage } from '../../Pages/LoginPage'
+import { RegistrationPage } from '../../Pages/RegistrationPage'
+
+import { routes } from '../../constants/routes'
 
 import style from './App.module.scss'
 
 export const App: FC = () => (
   <div className={style.app}>
     <Routes>
-      <Route path="/" element={<MainLayout />}>
+      <Route path={routes.HOME} element={<MainLayout />}>
         <Route index element={<HomePage />} />
-        <Route path="content" element={<ContentPage />} />
-        <Route path="*" element={<NotFoundPage />} />
+        <Route path={routes.LOGIN} element={<LoginPage />} />
+        <Route path={routes.REGISTER} element={<RegistrationPage />} />
+        <Route path={routes.CONTENT} element={<ContentPage />} />
+        <Route path={routes.NOT_FOUND} element={<NotFoundPage />} />
       </Route>
     </Routes>
   </div>
