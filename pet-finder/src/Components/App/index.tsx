@@ -11,6 +11,7 @@ import { RegistrationPage } from '../../Pages/RegistrationPage'
 import { routes } from '../../constants/routes'
 
 import style from './App.module.scss'
+import { ProfilePage } from '../../Pages/ProfilePage'
 
 export const App: FC = () => (
   <div className={style.app}>
@@ -20,6 +21,7 @@ export const App: FC = () => (
         <Route path={routes.LOGIN} element={<LoginPage />} />
         <Route path={routes.REGISTER} element={<RegistrationPage />} />
         <Route path={routes.CONTENT} element={<ContentPage />} />
+        <Route path={routes.PROFILE} element={<ProfilePage />} />
         <Route path={routes.NOT_FOUND} element={<NotFoundPage />} />
       </Route>
     </Routes>

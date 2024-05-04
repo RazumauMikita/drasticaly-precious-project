@@ -4,8 +4,9 @@ import { NavigateBar } from '../NavigateBar'
 import { Logo } from '../Logo'
 
 import style from './Header.module.scss'
-import { LoginLink } from '../LoginLink'
+import { LoginLink } from '../Links/LoginLink'
 import { StyledSelect } from '../StyledSelect'
+import { ProfileLink } from '../Links/ProfileLink'
 
 interface HeaderProps {}
 
@@ -14,6 +15,7 @@ export const Header: FC<HeaderProps> = () => (
     <StyledSelect />
     <Logo />
     <NavigateBar />
+    <ProfileLink />
     <LoginLink />
   </header>
 )

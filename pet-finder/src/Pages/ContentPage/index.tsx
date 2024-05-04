@@ -5,7 +5,7 @@ import style from './ContentPage.module.scss'
 interface ContentPageProps {}
 
 export const ContentPage: FC<ContentPageProps> = () => (
-  <div className={style.contentPage}>
+  <section className={style.contentPage}>
     <h1>ContentPage</h1>
-  </div>
+  </section>
 )

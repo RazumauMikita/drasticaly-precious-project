@@ -15,7 +15,7 @@ export const StyledSelect: FC<StyledSelectProps> = () => {
     setLang(value as Language)
   }
   return (
-    <select className={style.select} onChange={handleOnChangeSelect}>
+    <select className={style.select} onChange={handleOnChangeSelect} id="lang">
       {languages.map((elem) => (
         <option className={style.option} key={elem} value={elem}>
           {elem}
