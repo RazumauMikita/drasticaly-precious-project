@@ -5,12 +5,13 @@ import { Logo } from '../Logo'
 
 import style from './Header.module.scss'
 import { LoginLink } from '../LoginLink'
+import { StyledSelect } from '../StyledSelect'
 
 interface HeaderProps {}
 
 export const Header: FC<HeaderProps> = () => (
   <header className={style.header}>
-    <h1>Header</h1>
+    <StyledSelect />
     <Logo />
     <NavigateBar />
     <LoginLink />
