@@ -12,6 +12,7 @@ interface HeaderProps {}
 
 export const Header: FC<HeaderProps> = () => (
   <header className={style.header}>
+    <p>Header</p>
     <StyledSelect />
     <Logo />
     <NavigateBar />
