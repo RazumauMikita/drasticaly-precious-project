@@ -7,11 +7,11 @@ import { ContentPage } from '../../Pages/ContentPage'
 import { NotFoundPage } from '../../Pages/NotFoundPage'
 import { LoginPage } from '../../Pages/LoginPage'
 import { RegistrationPage } from '../../Pages/RegistrationPage'
+import { ProfilePage } from '../../Pages/ProfilePage'
 
 import { routes } from '../../constants/routes'
 
 import style from './App.module.scss'
-import { ProfilePage } from '../../Pages/ProfilePage'
 
 export const App: FC = () => (
   <div className={style.app}>

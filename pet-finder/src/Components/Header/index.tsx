@@ -1,7 +1,7 @@
 import { FC } from 'react'
 
 import { NavigateBar } from '../NavigateBar'
-import { Logo } from '../Logo'
+import { Logo } from '../Links/Logo'
 
 import style from './Header.module.scss'
 import { LoginLink } from '../Links/LoginLink'
