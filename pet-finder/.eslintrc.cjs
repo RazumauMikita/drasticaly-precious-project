@@ -35,5 +35,10 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'import/extensions': 'off',
     'react/function-component-definition': 'off',
+    'no-console': 'off',
+    'react/jsx-props-no-spreading': 'off',
+    'no-unused-vars': 'off',
+    'react/require-default-props': 'off',
+    'react/button-has-type': 'off',
   },
 }
