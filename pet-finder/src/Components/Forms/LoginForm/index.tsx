@@ -2,11 +2,12 @@ import { FC } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import { LoginFormType, loginSchema } from '../../../utils/loginFormSchema'
-
-import style from './LoginForm.module.scss'
 import { StyledInput } from '../../StyledInput'
 import { StyledButton } from '../../StyledButton'
+
+import { LoginFormType, loginSchema } from '../../../utils/loginFormSchema'
+
+import styles from './LoginForm.module.scss'
 
 interface LoginFormProps {}
 
@@ -19,8 +20,9 @@ export const LoginForm: FC<LoginFormProps> = () => {
   const onSubmit: SubmitHandler<LoginFormType> = ({ email, password }) => {
     console.log(email, password)
   }
+
   return (
-    <form className={style.loginForm} onSubmit={handleSubmit(onSubmit)}>
+    <form className={styles.loginForm} onSubmit={handleSubmit(onSubmit)}>
       <StyledInput
         inputError={errors.email}
         inputName="email"
