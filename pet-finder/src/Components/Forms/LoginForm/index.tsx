@@ -8,6 +8,7 @@ import { StyledButton } from '../../StyledButton'
 import { LoginFormType, loginSchema } from '../../../utils/loginFormSchema'
 
 import styles from './LoginForm.module.scss'
+import { IRequestBodySignUp, signUp } from '../../../requests/req'
 
 interface LoginFormProps {}
 
@@ -17,7 +18,17 @@ export const LoginForm: FC<LoginFormProps> = () => {
     handleSubmit,
     formState: { errors, isValid },
   } = useForm({ mode: 'all', resolver: yupResolver(loginSchema()) })
-  const onSubmit: SubmitHandler<LoginFormType> = ({ email, password }) => {
+  const onSubmit: SubmitHandler<LoginFormType> = async ({
+    email,
+    password,
+  }) => {
+    const singUnBody: IRequestBodySignUp = {
+      email: 'example333@site.com',
+      name: 'Sea SparrowNext ',
+      password: 'pass121233',
+    }
+    const response = await signUp(singUnBody)
+    console.log(response)
     console.log(email, password)
   }
 
