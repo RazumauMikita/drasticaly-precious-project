@@ -5,10 +5,10 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { StyledInput } from '../../StyledInput'
 import { StyledButton } from '../../StyledButton'
 
+import { getUserById } from '../../../requests/req'
 import { LoginFormType, loginSchema } from '../../../utils/loginFormSchema'
 
 import styles from './LoginForm.module.scss'
-import { IRequestBodySignUp, signUp } from '../../../requests/req'
 
 interface LoginFormProps {}
 
@@ -22,12 +22,10 @@ export const LoginForm: FC<LoginFormProps> = () => {
     email,
     password,
   }) => {
-    const singUnBody: IRequestBodySignUp = {
-      email: 'example333@site.com',
-      name: 'Sea SparrowNext ',
-      password: 'pass121233',
-    }
-    const response = await signUp(singUnBody)
+    const response = await getUserById(
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmMDRkZGRjNy0wMTU0LTQwZWMtYTMxMS1lOWU1MGRhZjMzMjgiLCJ1c2VybmFtZSI6ImVtYWlsQGV4LmNvbSIsImlhdCI6MTcxNzc5NzUzNCwiZXhwIjoxNzE3Nzk3NTk0fQ.tWkz-wRCCi2_vhhmF3PAEXYXRsQSaoJj8W3pLVACwng',
+      'f04dddc7-0154-40ec-a311-e9e50daf3328'
+    )
     console.log(response)
     console.log(email, password)
   }
