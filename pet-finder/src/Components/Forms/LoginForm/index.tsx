@@ -5,10 +5,11 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { StyledInput } from '../../StyledInput'
 import { StyledButton } from '../../StyledButton'
 
-import { getUserById } from '../../../requests/req'
+import { logIn } from '../../../requests/req'
 import { LoginFormType, loginSchema } from '../../../utils/loginFormSchema'
 
 import styles from './LoginForm.module.scss'
+import { ERROR_MESSAGES } from '../../../constants/errorMessages'
 
 interface LoginFormProps {}
 
@@ -17,17 +18,22 @@ export const LoginForm: FC<LoginFormProps> = () => {
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm({ mode: 'all', resolver: yupResolver(loginSchema()) })
+  } = useForm({
+    mode: 'all',
+    resolver: yupResolver(loginSchema(ERROR_MESSAGES)),
+  })
+
   const onSubmit: SubmitHandler<LoginFormType> = async ({
     email,
     password,
   }) => {
-    const response = await getUserById(
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmMDRkZGRjNy0wMTU0LTQwZWMtYTMxMS1lOWU1MGRhZjMzMjgiLCJ1c2VybmFtZSI6ImVtYWlsQGV4LmNvbSIsImlhdCI6MTcxNzc5NzUzNCwiZXhwIjoxNzE3Nzk3NTk0fQ.tWkz-wRCCi2_vhhmF3PAEXYXRsQSaoJj8W3pLVACwng',
-      'f04dddc7-0154-40ec-a311-e9e50daf3328'
-    )
-    console.log(response)
-    console.log(email, password)
+    try {
+      const response = await logIn({ email, password })
+      console.log(email, password)
+      console.log(response)
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   return (
