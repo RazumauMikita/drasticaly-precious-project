@@ -6,7 +6,13 @@ import style from './StyledInput.module.scss'
 interface StyledInputProps {
   inputError?: FieldError
   type: 'text' | 'password' | 'email'
-  inputName: 'name' | 'password' | 'email' | 'confirmPassword'
+  inputName:
+    | 'name'
+    | 'password'
+    | 'email'
+    | 'confirmPassword'
+    | 'city'
+    | 'country'
   label: string
 }
 

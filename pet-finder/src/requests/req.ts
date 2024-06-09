@@ -4,13 +4,12 @@ import {
   IRequestBodyRefresh,
   IRequestBodySignUp,
   ResponseBodyRefresh,
-  ResponseBodySignUp,
   ResponseBodyUserById,
 } from './interfaces'
 
 export const signUp = async (
   requestBody: IRequestBodySignUp
-): Promise<ResponseBodySignUp> => {
+): Promise<Response> => {
   const response: Response = await fetch(`${baseURL}${apiRoutes.SIGNUP}`, {
     method: httpMethods.POST,
     headers: {
@@ -18,8 +17,7 @@ export const signUp = async (
     },
     body: JSON.stringify(requestBody),
   })
-  const responseBody: ResponseBodySignUp = await response.json()
-  return responseBody
+  return response
 }
 
 export const logIn = async (

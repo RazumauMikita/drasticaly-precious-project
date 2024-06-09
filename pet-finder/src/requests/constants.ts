@@ -18,6 +18,7 @@ export enum httpMethods {
 export const exceptionResponse = {
   404: 'User does not exist.',
   403: 'Password is incorrect.',
+  409: 'Email is already used',
   500: 'Problems on server.',
 }
 export type ExceptionMessage = typeof exceptionResponse
