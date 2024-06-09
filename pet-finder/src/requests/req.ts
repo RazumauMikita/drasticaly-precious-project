@@ -3,7 +3,6 @@ import {
   IRequestBodyLogIn,
   IRequestBodyRefresh,
   IRequestBodySignUp,
-  IResponseBodyLogIn,
   ResponseBodyRefresh,
   ResponseBodySignUp,
   ResponseBodyUserById,
@@ -25,7 +24,7 @@ export const signUp = async (
 
 export const logIn = async (
   requestBody: IRequestBodyLogIn
-): Promise<IResponseBodyLogIn> => {
+): Promise<Response> => {
   const response: Response = await fetch(`${baseURL}${apiRoutes.LOGIN}`, {
     method: httpMethods.POST,
     headers: {
@@ -33,9 +32,7 @@ export const logIn = async (
     },
     body: JSON.stringify(requestBody),
   })
-
-  const responseBody: IResponseBodyLogIn = await response.json()
-  return responseBody
+  return response
 }
 
 export const refreshToken = async (

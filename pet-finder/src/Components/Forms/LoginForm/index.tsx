@@ -7,9 +7,14 @@ import { StyledButton } from '../../StyledButton'
 
 import { logIn } from '../../../requests/req'
 import { LoginFormType, loginSchema } from '../../../utils/loginFormSchema'
+import { ERROR_MESSAGES } from '../../../constants/errorMessages'
+import { IResponseBodyLogIn } from '../../../requests/interfaces'
+import {
+  exceptionResponse,
+  ExceptionMessage,
+} from '../../../requests/constants'
 
 import styles from './LoginForm.module.scss'
-import { ERROR_MESSAGES } from '../../../constants/errorMessages'
 
 interface LoginFormProps {}
 
@@ -18,6 +23,7 @@ export const LoginForm: FC<LoginFormProps> = () => {
     register,
     handleSubmit,
     formState: { errors, isValid },
+    setError,
   } = useForm({
     mode: 'all',
     resolver: yupResolver(loginSchema(ERROR_MESSAGES)),
@@ -27,12 +33,21 @@ export const LoginForm: FC<LoginFormProps> = () => {
     email,
     password,
   }) => {
+    console.log(email, password)
     try {
       const response = await logIn({ email, password })
-      console.log(email, password)
-      console.log(response)
-    } catch (e) {
-      console.log(e)
+      if (!response.ok) {
+        const serverMessage =
+          exceptionResponse[response.status as keyof ExceptionMessage]
+        setError('root.serverError', { message: serverMessage })
+      } else {
+        const responseBody: IResponseBodyLogIn = await response.json()
+        console.log(responseBody)
+      }
+    } catch (err) {
+      if (err instanceof Error) {
+        setError('root.serverError', { message: exceptionResponse[500] })
+      }
     }
   }
 
@@ -53,6 +68,7 @@ export const LoginForm: FC<LoginFormProps> = () => {
         {...register('password')}
       />
       <StyledButton text="log in" type="submit" disabled={!isValid} />
+      {errors.root?.serverError && <p>{errors.root?.serverError.message}</p>}
     </form>
   )
 }

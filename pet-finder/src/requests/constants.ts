@@ -14,3 +14,10 @@ export enum httpMethods {
   PUT = 'PUT',
   DELETE = 'DELETE',
 }
+
+export const exceptionResponse = {
+  404: 'User does not exist.',
+  403: 'Password is incorrect.',
+  500: 'Problems on server.',
+}
+export type ExceptionMessage = typeof exceptionResponse
