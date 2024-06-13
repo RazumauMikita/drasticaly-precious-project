@@ -3,16 +3,18 @@ import { FieldError } from 'react-hook-form'
 
 import style from './StyledInput.module.scss'
 
-interface StyledInputProps {
+export type InputName =
+  | 'name'
+  | 'password'
+  | 'email'
+  | 'confirmPassword'
+  | 'city'
+  | 'country'
+
+export interface StyledInputProps {
   inputError?: FieldError
   type: 'text' | 'password' | 'email'
-  inputName:
-    | 'name'
-    | 'password'
-    | 'email'
-    | 'confirmPassword'
-    | 'city'
-    | 'country'
+  inputName: InputName
   label: string
 }
 

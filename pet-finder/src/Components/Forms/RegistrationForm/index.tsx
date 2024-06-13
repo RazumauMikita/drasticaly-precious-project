@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useCallback } from 'react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
@@ -11,7 +11,6 @@ import {
   registerSchema,
 } from '../../../utils/registerFormSchema'
 
-import styles from './RegistrationForm.module.scss'
 import { logIn, signUp } from '../../../requests/req'
 import {
   IRequestBodyLogIn,
@@ -21,6 +20,9 @@ import {
   ExceptionMessage,
   exceptionResponse,
 } from '../../../requests/constants'
+
+import styles from './RegistrationForm.module.scss'
+import { registerFormFields } from '../../../constants/formFields'
 
 interface RegistrationFormProps {}
 
@@ -35,77 +37,53 @@ export const RegistrationForm: FC<RegistrationFormProps> = () => {
     resolver: yupResolver(registerSchema(ERROR_MESSAGES)),
   })
 
-  const onSubmit: SubmitHandler<RegisterFormType> = async (requestBody) => {
-    try {
-      const singUpResponse = await signUp(requestBody)
-      if (!singUpResponse.ok) {
-        const serverMessage =
-          exceptionResponse[singUpResponse.status as keyof ExceptionMessage]
-        setError('root.serverError', { message: serverMessage })
-      } else {
-        const reqBodyLogIn: IRequestBodyLogIn = {
-          email: requestBody.email,
-          password: requestBody.password,
+  const handleServerError = useCallback(
+    (status: number) => {
+      const serverMessage = exceptionResponse[status as keyof ExceptionMessage]
+      setError('root.serverError', { message: serverMessage })
+    },
+    [setError]
+  )
+
+  const onSubmit: SubmitHandler<RegisterFormType> = useCallback(
+    async (requestBody) => {
+      try {
+        const singUpResponse = await signUp(requestBody)
+        if (!singUpResponse.ok) {
+          handleServerError(singUpResponse.status)
+        } else {
+          const reqBodyLogIn: IRequestBodyLogIn = {
+            email: requestBody.email,
+            password: requestBody.password,
+          }
+          const logInResponse = await logIn(reqBodyLogIn)
+          if (logInResponse.ok) {
+            const { accessToken, refreshToken }: IResponseBodyLogIn =
+              await logInResponse.json()
+            console.log(accessToken, refreshToken)
+          }
         }
-        const logInResponse = await logIn(reqBodyLogIn)
-        if (logInResponse.ok) {
-          const { accessToken, refreshToken }: IResponseBodyLogIn =
-            await logInResponse.json()
-          console.log(accessToken, refreshToken)
-        }
-      }
-    } catch (err) {
-      if (err instanceof Error) {
+      } catch {
         setError('root.serverError', { message: exceptionResponse[500] })
       }
-    }
-  }
+    },
+    [handleServerError, setError]
+  )
 
   return (
     <form className={styles.registrationForm} onSubmit={handleSubmit(onSubmit)}>
-      <StyledInput
-        inputName="email"
-        label="Email"
-        type="email"
-        inputError={errors.email}
-        {...register('email')}
-      />
-      <StyledInput
-        inputName="name"
-        label="Name"
-        type="text"
-        inputError={errors.name}
-        {...register('name')}
-      />
-      <StyledInput
-        inputName="country"
-        label="Country"
-        type="text"
-        inputError={errors.country}
-        {...register('country')}
-      />
-      <StyledInput
-        inputName="city"
-        label="City"
-        type="text"
-        inputError={errors.city}
-        {...register('city')}
-      />
-      <StyledInput
-        inputName="password"
-        label="Password"
-        type="password"
-        inputError={errors.password}
-        {...register('password')}
-      />
-      <StyledInput
-        inputName="confirmPassword"
-        label="Confirm password"
-        type="password"
-        inputError={errors.confirmPassword}
-        {...register('confirmPassword')}
-      />
+      {registerFormFields.map((field) => (
+        <StyledInput
+          key={field.name}
+          inputName={field.name}
+          label={field.label}
+          type={field.type}
+          inputError={errors.email}
+          {...register(`${field.name}`)}
+        />
+      ))}
       <StyledButton text="register" type="submit" disabled={!isValid} />
+
       {errors.root?.serverError && <p>{errors.root?.serverError.message}</p>}
     </form>
   )
