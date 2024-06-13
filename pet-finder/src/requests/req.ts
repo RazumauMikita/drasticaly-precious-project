@@ -62,6 +62,3 @@ export const getUserById = async (
   const responseBody: ResponseBodyUserById = await response.json()
   return responseBody
 }
-// export const postLost = async () => {
-
-// }

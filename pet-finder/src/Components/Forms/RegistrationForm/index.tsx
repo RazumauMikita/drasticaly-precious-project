@@ -10,8 +10,9 @@ import {
   RegisterFormType,
   registerSchema,
 } from '../../../utils/registerFormSchema'
-
 import { logIn, signUp } from '../../../requests/req'
+
+import { registerFormFields } from '../../../constants/formFields'
 import {
   IRequestBodyLogIn,
   IResponseBodyLogIn,
@@ -22,11 +23,8 @@ import {
 } from '../../../requests/constants'
 
 import styles from './RegistrationForm.module.scss'
-import { registerFormFields } from '../../../constants/formFields'
 
-interface RegistrationFormProps {}
-
-export const RegistrationForm: FC<RegistrationFormProps> = () => {
+export const RegistrationForm: FC = () => {
   const {
     register,
     handleSubmit,

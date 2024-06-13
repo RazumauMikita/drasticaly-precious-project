@@ -6,9 +6,7 @@ import { routes } from '../../constants/routes'
 
 import style from './LoginPage.module.scss'
 
-interface LoginPageProps {}
-
-export const LoginPage: FC<LoginPageProps> = () => (
+export const LoginPage: FC = () => (
   <section className={style.loginPage}>
     <h1>LoginPage</h1>
     <LoginForm />

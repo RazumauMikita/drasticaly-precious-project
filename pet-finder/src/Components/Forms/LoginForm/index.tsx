@@ -17,9 +17,7 @@ import { loginFormFields } from '../../../constants/formFields'
 
 import styles from './LoginForm.module.scss'
 
-interface LoginFormProps {}
-
-export const LoginForm: FC<LoginFormProps> = () => {
+export const LoginForm: FC = () => {
   const {
     register,
     handleSubmit,
