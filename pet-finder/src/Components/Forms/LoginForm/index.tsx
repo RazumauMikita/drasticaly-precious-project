@@ -30,7 +30,6 @@ export const LoginForm: FC = () => {
 
   const onSubmit: SubmitHandler<LoginFormType> = useCallback(
     async ({ email, password }) => {
-      console.log(email, password)
       try {
         const response = await logIn({ email, password })
         if (!response.ok) {
