@@ -78,7 +78,7 @@ export const RegistrationForm: FC<RegistrationFormProps> = () => {
           inputName={field.name}
           label={field.label}
           type={field.type}
-          inputError={errors.email}
+          inputError={errors[field.name]}
           {...register(`${field.name}`)}
         />
       ))}
