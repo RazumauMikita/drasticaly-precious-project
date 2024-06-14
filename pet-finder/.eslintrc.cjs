@@ -40,5 +40,6 @@ module.exports = {
     'no-unused-vars': 'off',
     'react/require-default-props': 'off',
     'react/button-has-type': 'off',
+    'no-shadow': 'off',
   },
 }

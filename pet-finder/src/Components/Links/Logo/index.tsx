@@ -7,9 +7,7 @@ import logo from '../../../assets/logo.png'
 
 import style from './Logo.module.scss'
 
-interface LogoProps {}
-
-export const Logo: FC<LogoProps> = () => (
+export const Logo: FC = () => (
   <Link className={style.logo} to={routes.HOME}>
     <img className={style.logo_image} src={logo} alt="logo" />
   </Link>

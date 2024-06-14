@@ -7,9 +7,7 @@ import profileIcon from '../../../assets/profile-user.svg'
 
 import style from './ProfileLink.module.scss'
 
-interface ProfileLinkProps {}
-
-export const ProfileLink: FC<ProfileLinkProps> = () => (
+export const ProfileLink: FC = () => (
   <Link className={style.loginLing} to={routes.PROFILE}>
     <img className={style.profile_icon} src={profileIcon} alt="profile-icon" />
   </Link>

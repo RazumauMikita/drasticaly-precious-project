@@ -6,9 +6,7 @@ import { Footer } from '../Components/Footer'
 
 import style from './MainLayout.module.scss'
 
-interface MainLayoutProps {}
-
-export const MainLayout: FC<MainLayoutProps> = () => (
+export const MainLayout: FC = () => (
   <div className={style.mainLayout}>
     <Header />
     <Outlet />
