@@ -1,0 +1,17 @@
+.contentPage {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.aside {
+  border: 2px solid black;
+  width: 30%;
+  height: 98%;
+}
+.main {
+  border: 2px solid black;
+  width: 68%;
+  height: 98%;
+}
