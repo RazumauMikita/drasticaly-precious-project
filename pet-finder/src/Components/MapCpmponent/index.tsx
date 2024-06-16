@@ -5,7 +5,7 @@ import { Point, PointMarker } from '../PointMarker'
 
 import style from './MapComponent.module.scss'
 
-const locations: Point[] = [
+/* const locations: Point[] = [
   {
     key: '1',
     location: { lat: 53.75092731376716, lng: 27.961652649164915 },
@@ -26,9 +26,12 @@ const locations: Point[] = [
     location: { lat: 53.87960773338487, lng: 27.574554168459308 },
     isLost: false,
   },
-]
+] */
 
-export const MapComponent: FC = () => (
+interface MapComponentProps {
+  locations: Point[]
+}
+export const MapComponent: FC<MapComponentProps> = ({ locations }) => (
   <Map
     className={style.map}
     defaultZoom={6}
