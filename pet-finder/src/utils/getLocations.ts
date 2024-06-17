@@ -10,6 +10,9 @@ export const getLocations = (lostArray: ILost[]): Point[] => {
         lat: elem.lat,
         lng: elem.lng,
       },
+      createdAt: elem.createdAt,
+      description: elem.description,
+      images: elem.images,
     }
     return point
   })

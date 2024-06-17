@@ -10,6 +10,7 @@ import { getAllLost } from '../../requests/req'
 import { getLocations } from '../../utils/getLocations'
 
 import style from './ContentPage.module.scss'
+import { LostPetList } from '../../Components/LostPetList/indes'
 
 export const ContentPage: FC = () => {
   const [locations, setLocations] = useState<Point[]>([])
@@ -29,7 +30,9 @@ export const ContentPage: FC = () => {
   return (
     <section className={style.contentPage}>
       <APIProvider apiKey="AIzaSyAvrf86nTOVxt5xVWzTR0I1hiE6sXQj14w">
-        <aside className={style.aside} />
+        <aside className={style.aside}>
+          <LostPetList locations={locations} />
+        </aside>
         <main className={style.main}>
           <MapComponent locations={locations} />
         </main>

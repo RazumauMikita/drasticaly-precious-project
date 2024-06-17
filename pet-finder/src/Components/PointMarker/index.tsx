@@ -9,11 +9,15 @@ import {
 import { Marker, MarkerClusterer } from '@googlemaps/markerclusterer'
 
 import style from './PointMarker.module.scss'
+import { baseURL } from '../../requests/constants'
 
 export interface Point {
   key: string
   location: google.maps.LatLngLiteral
   isLost: boolean
+  description: string
+  createdAt: number
+  images: string[]
 }
 
 interface PointMarkerProps {
@@ -25,16 +29,19 @@ export const PointMarker: FC<PointMarkerProps> = ({ points }) => {
   const [markers, setMarkers] = useState<{ [key: string]: Marker }>({})
   const clusterer = useRef<MarkerClusterer | null>(null)
   const [selectedPointKey, setSelectedPointKey] = useState<string | null>(null)
+  const [selectedLost, setSelectedLost] = useState<Point | null>(null)
   const [infoWindowShown, setInfoWindowShown] = useState(false)
   const handleClose = useCallback(() => setInfoWindowShown(false), [])
 
   const handleClick = useCallback(
-    (ev: google.maps.MapMouseEvent, key: string) => {
+    (ev: google.maps.MapMouseEvent, lost: Point) => {
       if (!map) return
       if (!ev.latLng) return
       console.log('marker clicked: ', ev.latLng.toString())
       map.panTo(ev.latLng)
-      setSelectedPointKey(key)
+
+      setSelectedPointKey(lost.key)
+      setSelectedLost(lost)
       setInfoWindowShown((isShown) => !isShown)
     },
     [map]
@@ -75,7 +82,7 @@ export const PointMarker: FC<PointMarkerProps> = ({ points }) => {
             position={poi.location}
             ref={(marker) => setMarkerRef(marker, poi.key)}
             clickable
-            onClick={(ev) => handleClick(ev, poi.key)}
+            onClick={(ev) => handleClick(ev, poi)}
           >
             <Pin
               background={poi.isLost ? `#FBBC04` : '#FF0000'}
@@ -86,7 +93,10 @@ export const PointMarker: FC<PointMarkerProps> = ({ points }) => {
         ))}
       {infoWindowShown && selectedPointKey && (
         <InfoWindow anchor={markers[selectedPointKey]} onClose={handleClose}>
+          <img alt="Pet" src={`${baseURL}${selectedLost?.images[0]}`} />
           <h2>InfoWindow content!</h2>
+          <p>created at:{selectedLost?.createdAt}</p>
+          <p>description: {selectedLost?.description}</p>
           <p>Some arbitrary html to be rendered into the InfoWindow.</p>
         </InfoWindow>
       )}
