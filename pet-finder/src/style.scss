@@ -8,6 +8,9 @@ html {
   font-size: 10px;
 }
 
+body {
+  height: 100vh;
+}
 section {
   width: 100%;
   height: 100%;
@@ -16,4 +19,8 @@ section {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+#root {
+  height: 100%;
 }
