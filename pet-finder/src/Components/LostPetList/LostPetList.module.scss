@@ -1,0 +1,26 @@
+.container {
+  width: 100%;
+}
+
+.lostList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 3px 6px;
+  overflow: scroll;
+}
+
+.listElement {
+  font-size: 1rem;
+  border: 1px solid black;
+  padding: 3px 6px;
+
+  span {
+    font-weight: 600;
+  }
+}
+.image {
+  width: 100%;
+  height: auto;
+}
