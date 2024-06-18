@@ -1,5 +1,13 @@
 /* eslint-disable no-undef */
-import { FC, useCallback, useEffect, useRef, useState } from 'react'
+import {
+  Dispatch,
+  FC,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
 import {
   AdvancedMarker,
   InfoWindow,
@@ -8,8 +16,9 @@ import {
 } from '@vis.gl/react-google-maps'
 import { Marker, MarkerClusterer } from '@googlemaps/markerclusterer'
 
-import style from './PointMarker.module.scss'
 import { baseURL } from '../../requests/constants'
+
+import style from './PointMarker.module.scss'
 
 export interface Point {
   key: string
@@ -22,11 +31,16 @@ export interface Point {
 
 interface PointMarkerProps {
   points: Point[]
+  markers: { [key: string]: Marker }
+  setMarkers: Dispatch<SetStateAction<{ [key: string]: Marker }>>
 }
 
-export const PointMarker: FC<PointMarkerProps> = ({ points }) => {
+export const PointMarker: FC<PointMarkerProps> = ({
+  points,
+  markers,
+  setMarkers,
+}) => {
   const map = useMap()
-  const [markers, setMarkers] = useState<{ [key: string]: Marker }>({})
   const clusterer = useRef<MarkerClusterer | null>(null)
   const [selectedPointKey, setSelectedPointKey] = useState<string | null>(null)
   const [selectedLost, setSelectedLost] = useState<Point | null>(null)
