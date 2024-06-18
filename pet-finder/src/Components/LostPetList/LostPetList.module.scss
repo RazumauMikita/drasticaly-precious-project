@@ -8,13 +8,14 @@
   flex-direction: column;
   gap: 10px;
   padding: 3px 6px;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .listElement {
   font-size: 1rem;
   border: 1px solid black;
   padding: 3px 6px;
+  cursor: pointer;
 
   span {
     font-weight: 600;

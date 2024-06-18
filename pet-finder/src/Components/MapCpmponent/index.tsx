@@ -1,6 +1,5 @@
-import { Dispatch, FC, SetStateAction, useState } from 'react'
+import { Dispatch, FC, SetStateAction } from 'react'
 import { Map, useMap } from '@vis.gl/react-google-maps'
-import { Marker } from '@googlemaps/markerclusterer'
 
 import { Point, PointMarker } from '../PointMarker'
 
@@ -14,8 +13,6 @@ export const MapComponent: FC<MapComponentProps> = ({
   locations,
   setShownLost,
 }) => {
-  const [markers, setMarkers] = useState<{ [key: string]: Marker }>({})
-
   const map = useMap()
 
   const onZoomChange = () => {
@@ -35,12 +32,9 @@ export const MapComponent: FC<MapComponentProps> = ({
       onZoomChanged={onZoomChange}
       mapId="da37f3254c6a6d1c"
       defaultCenter={{ lat: 53.75092731376716, lng: 27.961652649164915 }}
+      onBoundsChanged={onZoomChange}
     >
-      <PointMarker
-        points={locations}
-        markers={markers}
-        setMarkers={setMarkers}
-      />
+      <PointMarker points={locations} />
     </Map>
   )
 }

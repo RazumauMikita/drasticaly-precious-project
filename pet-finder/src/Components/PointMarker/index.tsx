@@ -1,13 +1,5 @@
 /* eslint-disable no-undef */
-import {
-  Dispatch,
-  FC,
-  SetStateAction,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from 'react'
+import { FC, useCallback, useEffect, useRef, useState } from 'react'
 import {
   AdvancedMarker,
   InfoWindow,
@@ -31,16 +23,12 @@ export interface Point {
 
 interface PointMarkerProps {
   points: Point[]
-  markers: { [key: string]: Marker }
-  setMarkers: Dispatch<SetStateAction<{ [key: string]: Marker }>>
 }
 
-export const PointMarker: FC<PointMarkerProps> = ({
-  points,
-  markers,
-  setMarkers,
-}) => {
+export const PointMarker: FC<PointMarkerProps> = ({ points }) => {
   const map = useMap()
+  const [markers, setMarkers] = useState<{ [key: string]: Marker }>({})
+
   const clusterer = useRef<MarkerClusterer | null>(null)
   const [selectedPointKey, setSelectedPointKey] = useState<string | null>(null)
   const [selectedLost, setSelectedLost] = useState<Point | null>(null)
