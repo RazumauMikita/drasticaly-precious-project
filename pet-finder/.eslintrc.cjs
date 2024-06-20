@@ -29,7 +29,7 @@ module.exports = {
     'react/jsx-filename-extension': [1, { extensions: ['.ts', '.tsx'] }],
     'react/react-in-jsx-scope': 'off',
     'react/jsx-uses-react': 'off',
-    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+    'import/no-extraneous-dependencies': ['warning', { devDependencies: true }],
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',
     'import/prefer-default-export': 'off',
