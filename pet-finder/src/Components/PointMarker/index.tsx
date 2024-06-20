@@ -30,9 +30,11 @@ export const PointMarker: FC<PointMarkerProps> = ({ points }) => {
   const [markers, setMarkers] = useState<{ [key: string]: Marker }>({})
 
   const clusterer = useRef<MarkerClusterer | null>(null)
-  const [selectedPointKey, setSelectedPointKey] = useState<string | null>(null)
+
   const [selectedLost, setSelectedLost] = useState<Point | null>(null)
+
   const [infoWindowShown, setInfoWindowShown] = useState(false)
+
   const handleClose = useCallback(() => setInfoWindowShown(false), [])
 
   const handleClick = useCallback(
@@ -42,7 +44,6 @@ export const PointMarker: FC<PointMarkerProps> = ({ points }) => {
       console.log('marker clicked: ', ev.latLng.toString())
       map.panTo(ev.latLng)
 
-      setSelectedPointKey(lost.key)
       setSelectedLost(lost)
       setInfoWindowShown((isShown) => !isShown)
     },
@@ -93,8 +94,8 @@ export const PointMarker: FC<PointMarkerProps> = ({ points }) => {
             />
           </AdvancedMarker>
         ))}
-      {infoWindowShown && selectedPointKey && (
-        <InfoWindow anchor={markers[selectedPointKey]} onClose={handleClose}>
+      {infoWindowShown && selectedLost?.key && (
+        <InfoWindow anchor={markers[selectedLost.key]} onClose={handleClose}>
           <img alt="Pet" src={`${baseURL}${selectedLost?.images[0]}`} />
           <h2>InfoWindow content!</h2>
           <p>created at:{selectedLost?.createdAt}</p>

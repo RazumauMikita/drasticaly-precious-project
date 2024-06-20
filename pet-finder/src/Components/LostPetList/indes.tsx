@@ -1,9 +1,10 @@
 import { FC } from 'react'
 
-import style from './LostPetList.module.scss'
+import { Point } from '../PointMarker'
 
 import { baseURL } from '../../requests/constants'
-import { Point } from '../PointMarker'
+
+import style from './LostPetList.module.scss'
 
 interface LostPetListProps {
   locations: Point[]
