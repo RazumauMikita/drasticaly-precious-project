@@ -31,7 +31,7 @@ export const ContentPage: FC = () => {
 
   return (
     <section className={style.contentPage}>
-      <APIProvider apiKey="AIzaSyAvrf86nTOVxt5xVWzTR0I1hiE6sXQj14w">
+      <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAP_API_KEY || ''}>
         <aside className={style.aside}>
           <LostPetList locations={shownLost} />
         </aside>

@@ -30,7 +30,7 @@ export const MapComponent: FC<MapComponentProps> = ({
       className={style.map}
       defaultZoom={6}
       onZoomChanged={onZoomChange}
-      mapId="da37f3254c6a6d1c"
+      mapId={import.meta.env.VITE_MAP_ID}
       defaultCenter={{ lat: 53.75092731376716, lng: 27.961652649164915 }}
       onBoundsChanged={onZoomChange}
     >
