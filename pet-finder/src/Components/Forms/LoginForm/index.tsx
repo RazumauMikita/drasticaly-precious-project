@@ -6,7 +6,10 @@ import { StyledInput } from '../../StyledInput'
 import { StyledButton } from '../../StyledButton'
 
 import { logIn } from '../../../requests/req'
-import { LoginFormType, loginSchema } from '../../../utils/loginFormSchema'
+import {
+  LoginFormType,
+  loginSchema,
+} from '../../../utils/validation/loginFormSchema'
 import { ERROR_MESSAGES } from '../../../constants/errorMessages'
 import { IResponseBodyLogIn } from '../../../requests/interfaces'
 import {

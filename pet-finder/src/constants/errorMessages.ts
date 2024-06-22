@@ -12,6 +12,9 @@ export const ERROR_MESSAGES = {
   MATCH_CONFIRM_PASS: 'Password & confirm password do not match.',
   REQUIRED_CONFIRM_PASS: 'Confirm password is required.',
   REQUEST_UNEXPECTED_ERROR: 'Something went wrong:\n',
+  REQUIRED_DESCRIPTION: 'Description field is required',
+  IMAGE_FORMAT: 'Please provide a supported file type',
+  MAX_FILE_SIZE: 'Maximum file size reached',
 }
 export const ERROR_MESSAGES_RU = {
   REQUIRED_EMAIL: 'Имейл обязателен.',
@@ -27,5 +30,8 @@ export const ERROR_MESSAGES_RU = {
   MATCH_CONFIRM_PASS: 'Пароль и подтвержденный пароль не совпадают.',
   REQUIRED_CONFIRM_PASS: 'Подтверждение пароля обязательно.',
   REQUEST_UNEXPECTED_ERROR: 'Что-то пошло не так:\n',
+  REQUIRED_DESCRIPTION: 'Описание обязательное поле.',
+  IMAGE_FORMAT: 'Пожалуйста предоставьте поддерживаемый тип файла.',
+  MAX_FILE_SIZE: 'Достигнут максимальный размер файла',
 }
 export type ErrorMessages = typeof ERROR_MESSAGES

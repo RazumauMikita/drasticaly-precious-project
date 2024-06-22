@@ -1,8 +1,8 @@
 import * as yup from 'yup'
 import { InferType } from 'yup'
-import { ERROR_MESSAGES, ErrorMessages } from '../constants/errorMessages'
+import { ERROR_MESSAGES, ErrorMessages } from '../../constants/errorMessages'
 
-export const registerSchema = (errorMessages: ErrorMessages) => {
+const loginSchema = (errorMessages: ErrorMessages) => {
   const schema = yup.object().shape({
     email: yup
       .string()
@@ -18,22 +18,12 @@ export const registerSchema = (errorMessages: ErrorMessages) => {
       )
       .min(8, errorMessages.SHORT_PASSWORD)
       .required(errorMessages.REQUIRED_PASSWORD),
-    confirmPassword: yup
-      .string()
-      .required(errorMessages.REQUIRED_CONFIRM_PASS)
-      .test(
-        'is confirm password match',
-        errorMessages.MATCH_CONFIRM_PASS,
-        (value, context) => context.parent.password === value
-      ),
-    name: yup.string().required(),
-    country: yup.string(),
-    city: yup.string(),
   })
 
   return schema
 }
 
-const schema = registerSchema(ERROR_MESSAGES)
+const schema = loginSchema(ERROR_MESSAGES)
 
-export type RegisterFormType = InferType<typeof schema>
+export type LoginFormType = InferType<typeof schema>
+export { loginSchema }

@@ -9,7 +9,7 @@ import { ERROR_MESSAGES } from '../../../constants/errorMessages'
 import {
   RegisterFormType,
   registerSchema,
-} from '../../../utils/registerFormSchema'
+} from '../../../utils/validation/registerFormSchema'
 import { logIn, signUp } from '../../../requests/req'
 
 import { registerFormFields } from '../../../constants/formFields'
