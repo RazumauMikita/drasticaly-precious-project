@@ -5,5 +5,6 @@ export enum routes {
   REGISTER = '/register',
   PROFILE = '/profile',
   CONTENT = '/content',
+  LOST_FORM = '/lost-form',
   NOT_FOUND = '*',
 }
