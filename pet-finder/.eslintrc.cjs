@@ -29,7 +29,7 @@ module.exports = {
     'react/jsx-filename-extension': [1, { extensions: ['.ts', '.tsx'] }],
     'react/react-in-jsx-scope': 'off',
     'react/jsx-uses-react': 'off',
-    'import/no-extraneous-dependencies': ['warning', { devDependencies: true }],
+    'import/no-extraneous-dependencies': [1, { devDependencies: true }],
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',
     'import/prefer-default-export': 'off',
@@ -41,5 +41,6 @@ module.exports = {
     'react/require-default-props': 'off',
     'react/button-has-type': 'off',
     'no-shadow': 'off',
+    'no-param-reassign': 0,
   },
 }
