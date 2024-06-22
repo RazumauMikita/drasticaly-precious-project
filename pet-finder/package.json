@@ -19,8 +19,10 @@
     ]
   },
   "dependencies": {
+    "@googlemaps/markerclusterer": "^2.5.3",
     "@hookform/resolvers": "^3.3.4",
     "@reduxjs/toolkit": "^2.2.5",
+    "@vis.gl/react-google-maps": "^1.0.2",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.4",
     "react": "^18.2.0",

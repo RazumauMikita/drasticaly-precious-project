@@ -16,7 +16,8 @@ export interface ILost {
   ownerId: string
   isLost: boolean
   description: string
-  coordinates: string
+  lng: number
+  lat: number
   images: string[]
   version: number
   createdAt: number
