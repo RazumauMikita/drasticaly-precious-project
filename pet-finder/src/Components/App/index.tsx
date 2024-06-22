@@ -8,6 +8,7 @@ import { NotFoundPage } from '../../Pages/NotFoundPage'
 import { LoginPage } from '../../Pages/LoginPage'
 import { RegistrationPage } from '../../Pages/RegistrationPage'
 import { ProfilePage } from '../../Pages/ProfilePage'
+import { LostFormPage } from '../../Pages/LostFormPage'
 
 import { routes } from '../../constants/routes'
 
@@ -22,6 +23,7 @@ export const App: FC = () => (
         <Route path={routes.REGISTER} element={<RegistrationPage />} />
         <Route path={routes.CONTENT} element={<ContentPage />} />
         <Route path={routes.PROFILE} element={<ProfilePage />} />
+        <Route path={routes.LOST_FORM} element={<LostFormPage />} />
         <Route path={routes.NOT_FOUND} element={<NotFoundPage />} />
       </Route>
     </Routes>
