@@ -1,6 +1,7 @@
 import { FC, useCallback } from 'react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { StyledInput } from '../../StyledInput'
 import { StyledButton } from '../../StyledButton'
@@ -16,6 +17,7 @@ import { registerFormFields } from '../../../constants/formFields'
 import {
   IRequestBodyLogIn,
   IResponseBodyLogIn,
+  ResponseBodySignUp,
 } from '../../../requests/interfaces'
 import {
   ExceptionMessage,
@@ -23,8 +25,15 @@ import {
 } from '../../../requests/constants'
 
 import styles from './RegistrationForm.module.scss'
+import {
+  selectUserData,
+  setUserData,
+} from '../../../store/userData/userDataSlice'
+import { setIsLoggedIn } from '../../../store/userState/userStateSlice'
 
 export const RegistrationForm: FC = () => {
+  const dispatch = useDispatch()
+  const user = useSelector(selectUserData)
   const {
     register,
     handleSubmit,
@@ -50,6 +59,9 @@ export const RegistrationForm: FC = () => {
         if (!singUpResponse.ok) {
           handleServerError(singUpResponse.status)
         } else {
+          const response: ResponseBodySignUp = await singUpResponse.json()
+          dispatch(setUserData({ user: response }))
+          console.log(user)
           const reqBodyLogIn: IRequestBodyLogIn = {
             email: requestBody.email,
             password: requestBody.password,
@@ -58,6 +70,9 @@ export const RegistrationForm: FC = () => {
           if (logInResponse.ok) {
             const { accessToken, refreshToken }: IResponseBodyLogIn =
               await logInResponse.json()
+            dispatch(setIsLoggedIn(true))
+            localStorage.setItem('refreshToken', refreshToken)
+
             console.log(accessToken, refreshToken)
           }
         }
@@ -65,7 +80,7 @@ export const RegistrationForm: FC = () => {
         setError('root.serverError', { message: exceptionResponse[500] })
       }
     },
-    [handleServerError, setError]
+    [handleServerError, setError, dispatch, user]
   )
 
   return (

@@ -8,6 +8,8 @@ import { isValidFileExtension } from '../isValidExtension'
 const lostFormSchema = (errorMessages: ErrorMessages) => {
   const schema = yup.object().shape({
     description: yup.string().required(errorMessages.REQUIRED_DESCRIPTION),
+    lat: yup.number().required(errorMessages.REQUIRED_LOCATION),
+    lng: yup.number().required(errorMessages.REQUIRED_LOCATION),
     isLost: yup.boolean(),
     images: yup
       .mixed()

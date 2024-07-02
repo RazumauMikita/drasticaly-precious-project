@@ -15,6 +15,7 @@ export const ERROR_MESSAGES = {
   REQUIRED_DESCRIPTION: 'Description field is required',
   IMAGE_FORMAT: 'Please provide a supported file type',
   MAX_FILE_SIZE: 'Maximum file size reached',
+  REQUIRED_LOCATION: 'Location is required!',
 }
 export const ERROR_MESSAGES_RU = {
   REQUIRED_EMAIL: 'Имейл обязателен.',
@@ -33,5 +34,6 @@ export const ERROR_MESSAGES_RU = {
   REQUIRED_DESCRIPTION: 'Описание обязательное поле.',
   IMAGE_FORMAT: 'Пожалуйста предоставьте поддерживаемый тип файла.',
   MAX_FILE_SIZE: 'Достигнут максимальный размер файла',
+  REQUIRED_LOCATION: 'Локация обязательна!',
 }
 export type ErrorMessages = typeof ERROR_MESSAGES

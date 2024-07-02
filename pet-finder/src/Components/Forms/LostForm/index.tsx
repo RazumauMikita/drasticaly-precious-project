@@ -6,9 +6,10 @@ import {
   Map,
   MapMouseEvent,
   Pin,
- APIProvider } from '@vis.gl/react-google-maps'
+  APIProvider,
+} from '@vis.gl/react-google-maps'
 
-
+import { useSelector } from 'react-redux'
 import { StyledButton } from '../../StyledButton'
 
 import {
@@ -18,6 +19,8 @@ import {
 import { ERROR_MESSAGES } from '../../../constants/errorMessages'
 
 import style from './LostForm.module.scss'
+import { selectUserData } from '../../../store/userData/userDataSlice'
+import { postLostFindPet } from '../../../requests/req'
 
 interface LatLngLiteral {
   lat: number
@@ -26,21 +29,46 @@ interface LatLngLiteral {
 
 export const LostForm: FC = () => {
   const [location, setLocation] = useState<LatLngLiteral | null>(null)
+
+  const user = useSelector(selectUserData)
+  console.log(user)
   const {
     register,
     handleSubmit,
-
+    setValue,
     formState: { errors },
   } = useForm({
     mode: 'all',
     resolver: yupResolver(lostFormSchema(ERROR_MESSAGES)),
   })
   const handleMapClick = (ev: MapMouseEvent) => {
-    console.log(ev.detail.latLng)
     setLocation(ev.detail.latLng)
+    if (ev.detail.latLng?.lat && ev.detail.latLng?.lng) {
+      setValue('lat', ev.detail.latLng.lat)
+      setValue('lng', ev.detail.latLng.lng)
+    }
   }
-  const onSubmit: SubmitHandler<LostFormType> = useCallback((data) => {
+  const onSubmit: SubmitHandler<LostFormType> = useCallback(async (data) => {
+    const dataForm = new FormData()
     console.log(data)
+    /* eslint-disable-next-line */
+    for (const [key, value] of Object.entries(data)) {
+      if (key === 'images') {
+        const file = value as FileList
+        dataForm.append(key, file[0])
+      } else {
+        dataForm.append(key, value as string)
+      }
+    }
+
+    try {
+      const response = await postLostFindPet(dataForm)
+      if (response.ok) {
+        console.log('Successful operation!')
+      }
+    } catch {
+      console.log('server error lost request')
+    }
   }, [])
   return (
     <div>
@@ -52,6 +80,7 @@ export const LostForm: FC = () => {
         />
 
         <input type="file" {...register('images')} />
+
         <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAP_API_KEY || ''}>
           <div className={style.mapContainer}>
             <Map
@@ -75,7 +104,13 @@ export const LostForm: FC = () => {
         </APIProvider>
 
         <StyledButton text="submit" type="submit" />
-        <p>{errors.images?.message}</p>
+        <p>
+          {errors.images?.message}
+          {errors.root?.message}
+          {errors.isLost?.message}
+          {errors.lat?.message}
+          {errors.lng?.message}
+        </p>
       </form>
     </div>
   )

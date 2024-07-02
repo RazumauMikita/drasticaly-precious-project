@@ -45,14 +45,15 @@ export interface IRequestBodyPostLost {
   ownerId: string
   isLost: boolean
   description: string
-  coordinates: string
+  lng: number
+  lat: number
 }
 export interface IResponseBodyLogIn {
   accessToken: string
   refreshToken: string
 }
 export type ResponseBodySignUp = Omit<IUser, 'password'>
-
+export type IStoredUser = ResponseBodySignUp | null
 export type ResponseBodyRefresh = IRequestBodyLogIn
 
 export type ResponseBodyUserById = ResponseBodySignUp
