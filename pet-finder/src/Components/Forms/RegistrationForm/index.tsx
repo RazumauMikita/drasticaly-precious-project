@@ -4,7 +4,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { StyledInput } from '../../StyledInput'
 import { StyledButton } from '../../StyledButton'
-import { LocationInputs } from '../../LocationInputs'
+import { LocationInput } from '../../LocationInputs'
 
 import { ERROR_MESSAGES } from '../../../constants/errorMessages'
 import {
@@ -81,7 +81,7 @@ export const RegistrationForm: FC = () => {
           {...register(`${field.name}`)}
         />
       ))}
-      <LocationInputs/>
+      <LocationInput/>
       <StyledButton text="register" type="submit" disabled={!isValid} />
 
       {errors.root?.serverError && <p>{errors.root?.serverError.message}</p>}

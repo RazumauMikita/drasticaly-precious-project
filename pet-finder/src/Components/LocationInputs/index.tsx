@@ -1,12 +1,25 @@
 import { FC, useState } from "react";
-import { StyledInput } from "../StyledInput";
+import GooglePlacesAutocomplete from 'react-google-places-autocomplete'; 
 
-export const LocationInputs: FC = () => {
-  const [currentCountry, setCurrentCountry] = useState('');
+const lang = 'en'
+
+interface Country {
+  label: string;
+  value: string;
+}
+export const LocationInput: FC = () => {
+const [location, setLocation] = useState<Country | null>(null);
+console.log(location);
   return(
-  <>
-    <StyledInput type="text" inputName="country" label="Country" />
-    <StyledInput type="text" inputName="city" label="City" />
-    </>
+  <div>
+    <GooglePlacesAutocomplete
+      // apiKey={}  TODO add API key from env
+      apiOptions={{ language: lang }}
+      selectProps={{
+        value: location,
+        onChange: setLocation,
+      }}
+    />
+  </div>
   )
 }
