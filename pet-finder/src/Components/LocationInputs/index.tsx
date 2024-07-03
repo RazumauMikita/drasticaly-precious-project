@@ -1,19 +1,19 @@
 import { FC, useState } from "react";
+
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete'; 
 
-const lang = 'en'
+import * as LocationInterfacres from '../../types/location.type';
 
-interface Country {
-  label: string;
-  value: string;
-}
+const lang = 'en';
+
+
 export const LocationInput: FC = () => {
-const [location, setLocation] = useState<Country | null>(null);
+const [location, setLocation] = useState<LocationInterfacres.Country | null>(null);
 console.log(location);
   return(
   <div>
     <GooglePlacesAutocomplete
-      // apiKey={}  TODO add API key from env
+      // apiKey={} TODO add API key fron env
       apiOptions={{ language: lang }}
       selectProps={{
         value: location,
