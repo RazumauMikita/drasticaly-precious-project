@@ -1,18 +1,19 @@
 .container {
   font-size: 20px;
+  height: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: 10px;
+  overflow: auto;
 }
 
 .mapContainer {
   width: 400px;
-  height: 400px;
+  min-height: 200px;
 }
 
 textarea,
-input,
-button,
 .mapContainer {
   border: 2px solid black;
 }

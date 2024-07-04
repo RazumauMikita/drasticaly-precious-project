@@ -14,7 +14,7 @@ describe('App component tests', () => {
         <App />
       </BrowserRouter>
     )
-    const headerLabel = screen.getByText('Header')
+    const headerLabel = screen.getByText('Find my pet')
 
     expect(headerLabel).toBeInTheDocument()
   })

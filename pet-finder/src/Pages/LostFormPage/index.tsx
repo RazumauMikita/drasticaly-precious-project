@@ -5,6 +5,7 @@ import { LostForm } from '../../Components/Forms/LostForm'
 
 export const LostFormPage: FC = () => (
   <div className={style.container}>
+    <h1>Lost Form Page</h1>
     <LostForm />
   </div>
 )

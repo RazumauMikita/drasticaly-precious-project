@@ -71,47 +71,41 @@ export const LostForm: FC = () => {
     }
   }, [])
   return (
-    <div>
-      <form className={style.container} onSubmit={handleSubmit(onSubmit)}>
-        <textarea
-          {...register('description')}
-          name="description"
-          id="description"
-        />
+    <form className={style.container} onSubmit={handleSubmit(onSubmit)}>
+      <textarea
+        {...register('description')}
+        name="description"
+        id="description"
+      />
 
-        <input type="file" {...register('images')} />
+      <input type="file" {...register('images')} />
 
-        <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAP_API_KEY || ''}>
-          <div className={style.mapContainer}>
-            <Map
-              onClick={handleMapClick}
-              mapId={import.meta.env.VITE_MAP_ID}
-              defaultCenter={{
-                lat: 53.75092731376716,
-                lng: 27.961652649164915,
-              }}
-              defaultZoom={6}
-            >
-              <AdvancedMarker position={location}>
-                <Pin
-                  background="#FBBC04"
-                  glyphColor="#000"
-                  borderColor="#000"
-                />
-              </AdvancedMarker>
-            </Map>
-          </div>
-        </APIProvider>
+      <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAP_API_KEY || ''}>
+        <div className={style.mapContainer}>
+          <Map
+            onClick={handleMapClick}
+            mapId={import.meta.env.VITE_MAP_ID}
+            defaultCenter={{
+              lat: 53.75092731376716,
+              lng: 27.961652649164915,
+            }}
+            defaultZoom={6}
+          >
+            <AdvancedMarker position={location}>
+              <Pin background="#FBBC04" glyphColor="#000" borderColor="#000" />
+            </AdvancedMarker>
+          </Map>
+        </div>
+      </APIProvider>
 
-        <StyledButton text="submit" type="submit" />
-        <p>
-          {errors.images?.message}
-          {errors.root?.message}
-          {errors.isLost?.message}
-          {errors.lat?.message}
-          {errors.lng?.message}
-        </p>
-      </form>
-    </div>
+      <StyledButton text="submit" type="submit" />
+      <p>
+        {errors.images?.message}
+        {errors.root?.message}
+        {errors.isLost?.message}
+        {errors.lat?.message}
+        {errors.lng?.message}
+      </p>
+    </form>
   )
 }

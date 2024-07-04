@@ -24,7 +24,6 @@ import {
   exceptionResponse,
 } from '../../../requests/constants'
 
-import styles from './RegistrationForm.module.scss'
 import {
   selectUserData,
   setUserData,
@@ -84,7 +83,10 @@ export const RegistrationForm: FC = () => {
   )
 
   return (
-    <form className={styles.registrationForm} onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className={'w-full overflow-auto flex flex-col justify-between gap-5'}
+      onSubmit={handleSubmit(onSubmit)}
+    >
       {registerFormFields.map((field) => (
         <StyledInput
           key={field.name}
