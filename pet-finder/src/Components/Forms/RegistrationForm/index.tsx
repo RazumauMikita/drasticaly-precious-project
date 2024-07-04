@@ -84,7 +84,7 @@ export const RegistrationForm: FC = () => {
 
   return (
     <form
-      className={'w-full overflow-auto flex flex-col justify-between gap-5'}
+      className="w-full overflow-auto flex flex-col justify-between gap-5"
       onSubmit={handleSubmit(onSubmit)}
     >
       {registerFormFields.map((field) => (
