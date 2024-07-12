@@ -12,7 +12,7 @@ console.log(location);
   return(
   <div>
     <GooglePlacesAutocomplete
-      // apiKey={} TODO add API key fron env
+      apiKey={import.meta.env.VITE_GOOGLE_MAP_API_KEY} 
       apiOptions={{ language: lang }}
       selectProps={{
         value: location,
