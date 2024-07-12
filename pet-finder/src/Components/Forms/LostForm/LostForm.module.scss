@@ -4,16 +4,23 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 10px;
+  gap: 30px;
   overflow: auto;
 }
 
 .mapContainer {
   width: 400px;
   min-height: 200px;
+  display: flex;
+  flex-direction: column;
 }
 
 textarea,
 .mapContainer {
   border: 2px solid black;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
 }
