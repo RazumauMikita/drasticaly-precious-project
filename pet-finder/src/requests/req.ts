@@ -1,5 +1,6 @@
 import { baseURL, apiRoutes, httpMethods } from './constants'
 import {
+  ILost,
   IRequestBodyLogIn,
   IRequestBodyRefresh,
   IRequestBodySignUp,
@@ -60,5 +61,13 @@ export const getUserById = async (
   })
 
   const responseBody: ResponseBodyUserById = await response.json()
+  return responseBody
+}
+
+export const getAllLost = async () => {
+  const response: Response = await fetch(`${baseURL}${apiRoutes.LOST}`, {
+    method: httpMethods.GET,
+  })
+  const responseBody: ILost[] = await response.json()
   return responseBody
 }
