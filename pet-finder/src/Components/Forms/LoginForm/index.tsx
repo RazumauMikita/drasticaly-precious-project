@@ -6,7 +6,10 @@ import { StyledInput } from '../../StyledInput'
 import { StyledButton } from '../../StyledButton'
 
 import { logIn } from '../../../requests/req'
-import { LoginFormType, loginSchema } from '../../../utils/loginFormSchema'
+import {
+  LoginFormType,
+  loginSchema,
+} from '../../../utils/validation/loginFormSchema'
 import { ERROR_MESSAGES } from '../../../constants/errorMessages'
 import { IResponseBodyLogIn } from '../../../requests/interfaces'
 import {
@@ -14,8 +17,6 @@ import {
   ExceptionMessage,
 } from '../../../requests/constants'
 import { loginFormFields } from '../../../constants/formFields'
-
-import styles from './LoginForm.module.scss'
 
 export const LoginForm: FC = () => {
   const {
@@ -50,7 +51,10 @@ export const LoginForm: FC = () => {
   )
 
   return (
-    <form className={styles.loginForm} onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className="w-full flex flex-col justify-between gap-5"
+      onSubmit={handleSubmit(onSubmit)}
+    >
       {loginFormFields.map((field) => (
         <StyledInput
           key={field.name}
@@ -62,7 +66,9 @@ export const LoginForm: FC = () => {
         />
       ))}
       <StyledButton text="log in" type="submit" disabled={!isValid} />
-      {errors.root?.serverError && <p>{errors.root?.serverError.message}</p>}
+      {errors.root?.serverError && (
+        <p className="">{errors.root?.serverError.message}</p>
+      )}
     </form>
   )
 }

@@ -71,3 +71,11 @@ export const getAllLost = async () => {
   const responseBody: ILost[] = await response.json()
   return responseBody
 }
+
+export const postLostFindPet = async (body: FormData) => {
+  const response: Response = await fetch(`${baseURL}${apiRoutes.LOST}`, {
+    method: httpMethods.POST,
+    body,
+  })
+  return response
+}

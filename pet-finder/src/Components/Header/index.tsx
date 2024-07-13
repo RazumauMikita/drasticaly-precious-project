@@ -4,18 +4,11 @@ import { NavigateBar } from '../NavigateBar'
 import { Logo } from '../Links/Logo'
 
 import { LoginLink } from '../Links/LoginLink'
-import { StyledSelect } from '../StyledSelect'
-import { ProfileLink } from '../Links/ProfileLink'
-
-import style from './Header.module.scss'
 
 export const Header: FC = () => (
-  <header className={style.header}>
-    <p>Header</p>
-    <StyledSelect />
+  <header className="p-4 bg-teal-700 text-white w-full h-auto flex flex-row justify-between items-center gap-8">
     <Logo />
     <NavigateBar />
-    <ProfileLink />
     <LoginLink />
   </header>
 )
