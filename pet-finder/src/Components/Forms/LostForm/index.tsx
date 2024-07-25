@@ -8,15 +8,17 @@ import {
   Pin,
   APIProvider,
 } from '@vis.gl/react-google-maps'
+import { addDoc, collection } from 'firebase/firestore'
 
 import { StyledButton } from '../../StyledButton'
+
+import { db } from '../../../firebase/db'
 
 import {
   lostFormSchema,
   LostFormType,
 } from '../../../utils/validation/lostPetFormSchema'
 import { ERROR_MESSAGES } from '../../../constants/errorMessages'
-import { postLostFindPet } from '../../../requests/req'
 
 import style from './LostForm.module.scss'
 
@@ -46,7 +48,6 @@ export const LostForm: FC = () => {
   }
   const onSubmit: SubmitHandler<LostFormType> = useCallback(async (data) => {
     const dataForm = new FormData()
-    console.log(data)
     /* eslint-disable-next-line */
     for (const [key, value] of Object.entries(data)) {
       if (key === 'images') {
@@ -58,12 +59,14 @@ export const LostForm: FC = () => {
     }
 
     try {
-      const response = await postLostFindPet(dataForm)
-      if (response.ok) {
-        console.log('Successful operation!')
-      }
-    } catch {
-      console.log('server error lost request')
+      const docRef = await addDoc(collection(db, 'lost'), {
+        first: 'Ada',
+        last: 'Lovelace',
+        born: 1815,
+      })
+      console.log('Document written with ID: ', docRef.id)
+    } catch (e) {
+      console.error('Error adding document: ', e)
     }
   }, [])
   return (
