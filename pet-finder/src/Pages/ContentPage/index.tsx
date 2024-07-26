@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { APIProvider } from '@vis.gl/react-google-maps'
 
 import { Point } from '../../Components/PointMarker'
@@ -11,24 +11,26 @@ import { LostPetList } from '../../Components/LostPetList/indes'
 // import { getLocations } from '../../utils/getLocations'
 
 import style from './ContentPage.module.scss'
+import { getLostList } from '../../firebase/db/db'
 
 export const ContentPage: FC = () => {
   const [locations] = useState<Point[]>([])
   const [shownLost, setShownLost] = useState<Point[]>([])
 
-  /* useEffect(() => {
+  useEffect(() => {
     const fetchLost = async () => {
       try {
-        const response: ILost[] = await getAllLost()
-        setLocations(getLocations(response))
-        setShownLost(getLocations(response))
+        const response = await getLostList()
+        console.log(response)
+        // setLocations(getLocations(response))
+        // setShownLost(getLocations(response))
       } catch {
         console.error()
       }
     }
     fetchLost()
   }, [])
-*/
+
   return (
     <section className={style.contentPage}>
       <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAP_API_KEY || ''}>

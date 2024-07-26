@@ -1,4 +1,4 @@
-import { FC, useCallback, useState } from 'react'
+import { FC, useState } from 'react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import {
@@ -8,11 +8,10 @@ import {
   Pin,
   APIProvider,
 } from '@vis.gl/react-google-maps'
-import { addDoc, collection } from 'firebase/firestore'
 
 import { StyledButton } from '../../StyledButton'
 
-import { db } from '../../../firebase/db'
+import { addLostOrFindPet, ISendLostPet } from '../../../firebase/db/db'
 
 import {
   lostFormSchema,
@@ -46,29 +45,25 @@ export const LostForm: FC = () => {
       setValue('lng', ev.detail.latLng.lng)
     }
   }
-  const onSubmit: SubmitHandler<LostFormType> = useCallback(async (data) => {
-    const dataForm = new FormData()
-    /* eslint-disable-next-line */
-    for (const [key, value] of Object.entries(data)) {
-      if (key === 'images') {
-        const file = value as FileList
-        dataForm.append(key, file[0])
-      } else {
-        dataForm.append(key, value as string)
-      }
+  const onSubmit: SubmitHandler<LostFormType> = async ({
+    isLost,
+    description,
+    images,
+    lat,
+    lng,
+  }) => {
+    const data: ISendLostPet = {
+      isLost,
+      description,
+      images: images.toString(),
+      lat,
+      lng,
     }
 
-    try {
-      const docRef = await addDoc(collection(db, 'lost'), {
-        first: 'Ada',
-        last: 'Lovelace',
-        born: 1815,
-      })
-      console.log('Document written with ID: ', docRef.id)
-    } catch (e) {
-      console.error('Error adding document: ', e)
-    }
-  }, [])
+    const doc = await addLostOrFindPet(data)
+
+    console.log(doc)
+  }
   return (
     <form className={style.container} onSubmit={handleSubmit(onSubmit)}>
       <select id="isLostSelect" {...register('isLost')}>
