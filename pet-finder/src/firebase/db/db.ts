@@ -38,5 +38,5 @@ const getLostList = async () => {
   return querySnapshot
 }
 
-export { db, addLostOrFindPet, getLostList }
+export { db, app, addLostOrFindPet, getLostList }
 export type { ISendLostPet }

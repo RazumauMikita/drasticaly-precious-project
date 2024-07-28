@@ -20,6 +20,7 @@ import {
 import { ERROR_MESSAGES } from '../../../constants/errorMessages'
 
 import style from './LostForm.module.scss'
+import { uploadFile } from '../../../firebase/storage/storage'
 
 interface LatLngLiteral {
   lat: number
@@ -52,10 +53,16 @@ export const LostForm: FC = () => {
     lat,
     lng,
   }) => {
+    const fileList = images as FileList
+
+    const fileUploadResult = await uploadFile(fileList[0] as File)
+
+    console.log(fileUploadResult)
+
     const data: ISendLostPet = {
       isLost,
       description,
-      images: images.toString(),
+      images: fileUploadResult.ref.fullPath,
       lat,
       lng,
     }
