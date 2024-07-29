@@ -12,6 +12,7 @@ import { LostPetList } from '../../Components/LostPetList/indes'
 
 import style from './ContentPage.module.scss'
 import { getLostList } from '../../firebase/db/db'
+import { getLostFromResponse } from '../../utils/getLostFromResponse'
 
 export const ContentPage: FC = () => {
   const [locations] = useState<Point[]>([])
@@ -21,7 +22,8 @@ export const ContentPage: FC = () => {
     const fetchLost = async () => {
       try {
         const response = await getLostList()
-        console.log(response)
+        const lostList = getLostFromResponse(response)
+        console.log(lostList)
         // setLocations(getLocations(response))
         // setShownLost(getLocations(response))
       } catch {

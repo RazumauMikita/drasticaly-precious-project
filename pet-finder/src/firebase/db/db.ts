@@ -1,7 +1,7 @@
 import { initializeApp } from 'firebase/app'
 import { addDoc, collection, getDocs, getFirestore } from 'firebase/firestore'
 
-import { firebaseConfig } from './db.config'
+import { firebaseConfig } from '../db.config'
 
 interface ISendLostPet {
   description: string
@@ -22,7 +22,7 @@ const db = getFirestore(app)
 const addLostOrFindPet = async (data: ISendLostPet) => {
   try {
     const docRef = await addDoc(collection(db, collectionsPath.LOST), data)
-    console.log('Document written with ID: ', docRef.id)
+    // console.log('Document written with ID: ', docRef.id)
     return docRef
   } catch (e) {
     console.error('Error adding document: ', e)
@@ -32,9 +32,9 @@ const addLostOrFindPet = async (data: ISendLostPet) => {
 
 const getLostList = async () => {
   const querySnapshot = await getDocs(collection(db, collectionsPath.LOST))
-  querySnapshot.forEach((doc) => {
+  /* querySnapshot.forEach((doc) => {
     console.log(`${doc.id} => ${JSON.stringify(doc.data())}`)
-  })
+  }) */
   return querySnapshot
 }
 

@@ -57,7 +57,7 @@ export const LostForm: FC = () => {
 
     const fileUploadResult = await uploadFile(fileList[0] as File)
 
-    console.log(fileUploadResult)
+    // console.log(fileUploadResult)
 
     const data: ISendLostPet = {
       isLost,
