@@ -1,9 +1,9 @@
 export const firebaseConfig = {
-  apiKey: 'AIzaSyBLQuQsQVhebmtZqGkStPJM0SaHNnrLxnM',
-  authDomain: 'lost-next.firebaseapp.com',
-  projectId: 'lost-next',
-  storageBucket: 'lost-next.appspot.com',
-  messagingSenderId: '348415550222',
-  appId: '1:348415550222:web:40b7448aae32f04648ed5f',
-  measurementId: 'G-4L173QC3HM',
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 }
