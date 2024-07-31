@@ -8,6 +8,7 @@ import {
   Pin,
   APIProvider,
 } from '@vis.gl/react-google-maps'
+import { v4 as uuidv4 } from 'uuid'
 
 import { StyledButton } from '../../StyledButton'
 
@@ -57,9 +58,9 @@ export const LostForm: FC = () => {
 
     const fileUploadResult = await uploadFile(fileList[0] as File)
 
-    // console.log(fileUploadResult)
-
     const data: ISendLostPet = {
+      id: uuidv4(),
+      createdAt: Date.now(),
       isLost,
       description,
       images: fileUploadResult.ref.fullPath,

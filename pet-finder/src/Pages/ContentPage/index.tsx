@@ -5,33 +5,40 @@ import { Point } from '../../Components/PointMarker'
 import { MapComponent } from '../../Components/MapCpmponent'
 import { LostPetList } from '../../Components/LostPetList/indes'
 
-// import { ILost } from '../../requests/interfaces'
+import { getLocations } from '../../utils/getLocations'
 
-/// import { getAllLost } from '../../requests/req'
-// import { getLocations } from '../../utils/getLocations'
-
-import style from './ContentPage.module.scss'
 import { getLostList } from '../../firebase/db/db'
 import { getLostFromResponse } from '../../utils/getLostFromResponse'
+import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks'
+
+import { setPetData } from '../../store/petData/petDataSlice'
+
+import style from './ContentPage.module.scss'
 
 export const ContentPage: FC = () => {
-  const [locations] = useState<Point[]>([])
+  const [locations, setLocations] = useState<Point[]>([])
   const [shownLost, setShownLost] = useState<Point[]>([])
+
+  const { pets } = useAppSelector((state) => state.allPetData)
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     const fetchLost = async () => {
       try {
         const response = await getLostList()
-        const lostList = getLostFromResponse(response)
-        console.log(lostList)
-        // setLocations(getLocations(response))
-        // setShownLost(getLocations(response))
+        const pets = getLostFromResponse(response)
+        dispatch(setPetData({ pets }))
       } catch {
         console.error()
       }
     }
     fetchLost()
   }, [])
+
+  useEffect(() => {
+    setLocations(getLocations(pets))
+    setShownLost(getLocations(pets))
+  }, [pets])
 
   return (
     <section className={style.contentPage}>

@@ -18,7 +18,7 @@ export interface Point {
   isLost: boolean
   description: string
   createdAt: number
-  images: string[]
+  images: string
 }
 
 interface PointMarkerProps {
