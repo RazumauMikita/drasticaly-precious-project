@@ -1,19 +1,19 @@
-import { Dispatch, FC, SetStateAction } from 'react'
+import { FC, useEffect } from 'react'
 import { Map, useMap } from '@vis.gl/react-google-maps'
 
 import { Point, PointMarker } from '../PointMarker'
 
+import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks'
+import { getLocations } from '../../utils/getLocations'
+import { setShownPets } from '../../store/petData/petDataSlice'
+
 import style from './MapComponent.module.scss'
 
-interface MapComponentProps {
-  locations: Point[]
-  setShownLost: Dispatch<SetStateAction<Point[]>>
-}
-export const MapComponent: FC<MapComponentProps> = ({
-  locations,
-  setShownLost,
-}) => {
+export const MapComponent: FC = () => {
   const map = useMap()
+  const { pets } = useAppSelector((state) => state.allPetData)
+  const dispatch = useAppDispatch()
+  const locations = getLocations(pets)
 
   const onZoomChange = () => {
     if (!map) return
@@ -21,9 +21,12 @@ export const MapComponent: FC<MapComponentProps> = ({
     const visibleMarkersIds: Point[] = locations.filter((elem) =>
       bounds?.contains(elem.location)
     )
-
-    setShownLost(visibleMarkersIds)
+    dispatch(setShownPets(visibleMarkersIds))
   }
+
+  useEffect(() => {
+    onZoomChange()
+  }, [pets])
 
   return (
     <Map
@@ -34,7 +37,7 @@ export const MapComponent: FC<MapComponentProps> = ({
       defaultCenter={{ lat: 53.75092731376716, lng: 27.961652649164915 }}
       onBoundsChanged={onZoomChange}
     >
-      <PointMarker points={locations} />
+      <PointMarker />
     </Map>
   )
 }

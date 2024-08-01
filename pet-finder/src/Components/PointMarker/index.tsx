@@ -8,6 +8,9 @@ import {
 } from '@vis.gl/react-google-maps'
 import { Marker, MarkerClusterer } from '@googlemaps/markerclusterer'
 
+import { useAppSelector } from '../../store/hooks/hooks'
+import { getLocations } from '../../utils/getLocations'
+
 import { baseURL } from '../../requests/constants'
 
 import style from './PointMarker.module.scss'
@@ -21,12 +24,13 @@ export interface Point {
   images: string
 }
 
-interface PointMarkerProps {
-  points: Point[]
-}
+export const PointMarker: FC = () => {
+  const { pets } = useAppSelector((state) => state.allPetData)
 
-export const PointMarker: FC<PointMarkerProps> = ({ points }) => {
+  const locations = getLocations(pets)
+
   const map = useMap()
+
   const [markers, setMarkers] = useState<{ [key: string]: Marker }>({})
 
   const clusterer = useRef<MarkerClusterer | null>(null)
@@ -78,8 +82,8 @@ export const PointMarker: FC<PointMarkerProps> = ({ points }) => {
 
   return (
     <div className={style.pointContainer}>
-      {points &&
-        points.map((poi: Point) => (
+      {locations &&
+        locations.map((poi: Point) => (
           <AdvancedMarker
             key={poi.key}
             position={poi.location}
