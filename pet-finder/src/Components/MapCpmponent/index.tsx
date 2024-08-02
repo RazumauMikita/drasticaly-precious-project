@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react'
+import { FC, useCallback, useEffect } from 'react'
 import { Map, useMap } from '@vis.gl/react-google-maps'
 
 import { Point, PointMarker } from '../PointMarker'
@@ -15,14 +15,14 @@ export const MapComponent: FC = () => {
   const dispatch = useAppDispatch()
   const locations = getLocations(pets)
 
-  const onZoomChange = () => {
+  const onZoomChange = useCallback(() => {
     if (!map) return
     const bounds = map.getBounds()
     const visibleMarkersIds: Point[] = locations.filter((elem) =>
       bounds?.contains(elem.location)
     )
     dispatch(setShownPets(visibleMarkersIds))
-  }
+  }, [map, locations, dispatch])
 
   useEffect(() => {
     onZoomChange()

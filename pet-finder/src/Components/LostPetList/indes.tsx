@@ -9,6 +9,7 @@ import style from './LostPetList.module.scss'
 export const LostPetList: FC = () => {
   const { shownPets } = useAppSelector((state) => state.allPetData)
   const locations = shownPets
+
   return (
     <div className={style.container}>
       <ul className={style.lostList}>
