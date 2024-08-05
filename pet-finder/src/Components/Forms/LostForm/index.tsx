@@ -74,10 +74,12 @@ export const LostForm: FC = () => {
   }
   return (
     <form className={style.container} onSubmit={handleSubmit(onSubmit)}>
-      <select id="isLostSelect" {...register('isLost')}>
-        <option value="true">I Lost Pet</option>
-        <option value="false">I Found Pet</option>
-      </select>
+      <div className={style.customSelect}>
+        <select id="isLostSelect" {...register('isLost')}>
+          <option value="true">I Lost Pet</option>
+          <option value="false">I Found Pet</option>
+        </select>
+      </div>
 
       <div className={style.inputContainer}>
         <p>Description:</p>
