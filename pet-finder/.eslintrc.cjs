@@ -42,5 +42,6 @@ module.exports = {
     'react/button-has-type': 'off',
     'no-shadow': 'off',
     'no-param-reassign': 0,
+    'react-hooks/exhaustive-deps': 'off',
   },
 }

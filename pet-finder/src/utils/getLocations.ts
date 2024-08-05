@@ -1,7 +1,8 @@
 import { Point } from '../Components/PointMarker'
-import { ILost } from '../requests/interfaces'
 
-export const getLocations = (lostArray: ILost[]): Point[] => {
+import { ISendLostPet } from '../firebase/db/db'
+
+export const getLocations = (lostArray: ISendLostPet[]): Point[] => {
   const result = lostArray.map((elem) => {
     const point: Point = {
       key: elem.id,

@@ -10,7 +10,7 @@ const lostFormSchema = (errorMessages: ErrorMessages) => {
     description: yup.string().required(errorMessages.REQUIRED_DESCRIPTION),
     lat: yup.number().required(errorMessages.REQUIRED_LOCATION),
     lng: yup.number().required(errorMessages.REQUIRED_LOCATION),
-    isLost: yup.boolean(),
+    isLost: yup.boolean().required(),
     images: yup
       .mixed()
       .required()

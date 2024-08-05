@@ -1,4 +1,4 @@
-import { FC, useCallback, useState } from 'react'
+import { FC, useState } from 'react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import {
@@ -8,17 +8,20 @@ import {
   Pin,
   APIProvider,
 } from '@vis.gl/react-google-maps'
+import { v4 as uuidv4 } from 'uuid'
 
 import { StyledButton } from '../../StyledButton'
+
+import { addLostOrFindPet, ISendLostPet } from '../../../firebase/db/db'
 
 import {
   lostFormSchema,
   LostFormType,
 } from '../../../utils/validation/lostPetFormSchema'
 import { ERROR_MESSAGES } from '../../../constants/errorMessages'
-import { postLostFindPet } from '../../../requests/req'
 
 import style from './LostForm.module.scss'
+import { uploadFile } from '../../../firebase/storage/storage'
 
 interface LatLngLiteral {
   lat: number
@@ -44,28 +47,31 @@ export const LostForm: FC = () => {
       setValue('lng', ev.detail.latLng.lng)
     }
   }
-  const onSubmit: SubmitHandler<LostFormType> = useCallback(async (data) => {
-    const dataForm = new FormData()
-    console.log(data)
-    /* eslint-disable-next-line */
-    for (const [key, value] of Object.entries(data)) {
-      if (key === 'images') {
-        const file = value as FileList
-        dataForm.append(key, file[0])
-      } else {
-        dataForm.append(key, value as string)
-      }
+  const onSubmit: SubmitHandler<LostFormType> = async ({
+    isLost,
+    description,
+    images,
+    lat,
+    lng,
+  }) => {
+    const fileList = images as FileList
+
+    const fileUploadResult = await uploadFile(fileList[0] as File)
+
+    const data: ISendLostPet = {
+      id: uuidv4(),
+      createdAt: Date.now(),
+      isLost,
+      description,
+      images: fileUploadResult.ref.fullPath,
+      lat,
+      lng,
     }
 
-    try {
-      const response = await postLostFindPet(dataForm)
-      if (response.ok) {
-        console.log('Successful operation!')
-      }
-    } catch {
-      console.log('server error lost request')
-    }
-  }, [])
+    const doc = await addLostOrFindPet(data)
+
+    console.log(doc)
+  }
   return (
     <form className={style.container} onSubmit={handleSubmit(onSubmit)}>
       <select id="isLostSelect" {...register('isLost')}>
