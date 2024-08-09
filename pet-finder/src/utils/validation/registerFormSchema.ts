@@ -26,7 +26,7 @@ export const registerSchema = (errorMessages: ErrorMessages) => {
         errorMessages.MATCH_CONFIRM_PASS,
         (value, context) => context.parent.password === value
       ),
-    name: yup.string().required(),
+    name: yup.string(),
     country: yup.string(),
     city: yup.string(),
   })
