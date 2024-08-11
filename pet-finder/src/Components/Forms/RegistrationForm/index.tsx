@@ -47,8 +47,20 @@ export const RegistrationForm: FC = () => {
         const user = await signUpFB(requestBody.email, requestBody.password)
 
         console.log(user)
-      } catch {
-        setError('root.serverError', { message: exceptionResponse[500] })
+      } catch (error) {
+        if (error instanceof Error && 'code' in error) {
+          const errorCode = error.code
+          console.log(errorCode)
+          switch (errorCode) {
+            case 'auth/email-already-in-use':
+              setError('root.serverError', { message: exceptionResponse[409] })
+              break
+            default:
+              setError('root.serverError', { message: error.message })
+          }
+        } else {
+          setError('root.serverError', { message: exceptionResponse[500] })
+        }
       }
     },
     [handleServerError, setError, dispatch, user]

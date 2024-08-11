@@ -30,8 +30,16 @@ export const LoginForm: FC = () => {
     async ({ email, password }) => {
       try {
         await signInFB(email, password)
-      } catch (err) {
-        if (err instanceof Error) {
+      } catch (error) {
+        if (error instanceof Error && 'code' in error) {
+          switch (error.code) {
+            case 'auth/invalid-credential':
+              setError('root.serverError', { message: exceptionResponse[403] })
+              break
+            default:
+              setError('root.serverError', { message: error.message })
+          }
+        } else {
           setError('root.serverError', { message: exceptionResponse[500] })
         }
       }

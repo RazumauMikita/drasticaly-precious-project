@@ -69,7 +69,6 @@ export const LostForm: FC = () => {
     }
 
     const doc = await addLostOrFindPet(data)
-
     console.log(doc)
   }
   return (
@@ -119,6 +118,7 @@ export const LostForm: FC = () => {
       <StyledButton text="submit" type="submit" />
       <p>
         {errors.images?.message}
+        {errors.description?.message}
         {errors.root?.message}
         {errors.isLost?.message}
         {errors.lat?.message}
