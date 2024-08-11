@@ -1,6 +1,7 @@
 import { ReactElement, forwardRef } from 'react'
 
 import { StyledInputProps } from './styledInput.type'
+import FormError from '../FormError'
 
 export const StyledInput = forwardRef<HTMLInputElement, StyledInputProps>(
   (
@@ -25,11 +26,7 @@ export const StyledInput = forwardRef<HTMLInputElement, StyledInputProps>(
         />
       </div>
 
-      {inputError?.message && (
-        <span className="text-sm text-red-700 font-medium -bottom-6 m-auto">
-          {inputError?.message}
-        </span>
-      )}
+      {inputError?.message && <FormError message={inputError.message} />}
     </div>
   )
 )
