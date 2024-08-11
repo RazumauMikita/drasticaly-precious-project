@@ -1,4 +1,4 @@
-export const baseURL = 'http://localhost:4000/'
+export const baseURL = 'gs://lost-next.appspot.com/'
 
 export enum apiRoutes {
   USERS = 'users',

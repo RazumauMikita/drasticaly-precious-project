@@ -11,8 +11,10 @@ import {
 import { v4 as uuidv4 } from 'uuid'
 
 import { StyledButton } from '../../StyledButton'
+import FormError from '../../FormError'
 
 import { addLostOrFindPet, ISendLostPet } from '../../../firebase/db/db'
+import { uploadImage } from '../../../requests/imgbb'
 
 import {
   lostFormSchema,
@@ -21,8 +23,6 @@ import {
 import { ERROR_MESSAGES } from '../../../constants/errorMessages'
 
 import style from './LostForm.module.scss'
-import { uploadFile } from '../../../firebase/storage/storage'
-import FormError from '../../FormError'
 
 interface LatLngLiteral {
   lat: number
@@ -57,20 +57,19 @@ export const LostForm: FC = () => {
   }) => {
     const fileList = images as FileList
 
-    const fileUploadResult = await uploadFile(fileList[0] as File)
+    const fileUploadResult = await uploadImage(fileList[0] as File)
 
     const data: ISendLostPet = {
       id: uuidv4(),
       createdAt: Date.now(),
       isLost,
       description,
-      images: fileUploadResult.ref.fullPath,
+      images: fileUploadResult.data.image.url,
       lat,
       lng,
     }
 
-    const doc = await addLostOrFindPet(data)
-    console.log(doc)
+    await addLostOrFindPet(data)
   }
   return (
     <form className={style.container} onSubmit={handleSubmit(onSubmit)}>

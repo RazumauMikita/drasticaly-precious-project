@@ -10,4 +10,4 @@ const uploadFile = async (file: File) => {
   return response
 }
 
-export { uploadFile }
+export { uploadFile, storage }
