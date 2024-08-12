@@ -8,21 +8,34 @@ import { getLocations } from '../../utils/getLocations'
 import { setShownPets } from '../../store/petData/petDataSlice'
 
 import style from './MapComponent.module.scss'
+import { useSearchParams } from 'react-router-dom'
 
 export const MapComponent: FC = () => {
   const map = useMap()
   const { pets } = useAppSelector((state) => state.allPetData)
   const dispatch = useAppDispatch()
   const locations = getLocations(pets)
-
+  const [searchParams] = useSearchParams()
+  const mapZoom = searchParams.get('z') || '6'
+  const mapLat = searchParams.get('lat') || '53.75092731376716'
+  const mapLng = searchParams.get('lng') || '27.96165264916491'
   const onZoomChange = useCallback(() => {
     if (!map) return
     const bounds = map.getBounds()
+    const queryParams = new URLSearchParams({
+      z: map.getZoom()?.toString() || '6',
+      lat: map.getCenter()?.lat().toString() || '53.75092731376716',
+      lng: map.getCenter()?.lng().toString() || '27.96165264916491',
+    })
+    window.history.pushState({}, '', `?${queryParams.toString()}`)
+
     const visibleMarkersIds: Point[] = locations.filter((elem) =>
       bounds?.contains(elem.location)
     )
     dispatch(setShownPets(visibleMarkersIds))
   }, [map, locations, dispatch])
+
+  console.log(map?.getCenter()?.lat().toString())
 
   useEffect(() => {
     onZoomChange()
@@ -31,10 +44,10 @@ export const MapComponent: FC = () => {
   return (
     <Map
       className={style.map}
-      defaultZoom={6}
+      defaultZoom={parseFloat(mapZoom)}
       onZoomChanged={onZoomChange}
       mapId={import.meta.env.VITE_MAP_ID}
-      defaultCenter={{ lat: 53.75092731376716, lng: 27.961652649164915 }}
+      defaultCenter={{ lat: parseFloat(mapLat), lng: parseFloat(mapLng) }}
       onBoundsChanged={onZoomChange}
     >
       <PointMarker />
