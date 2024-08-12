@@ -23,6 +23,8 @@ import {
 import { ERROR_MESSAGES } from '../../../constants/errorMessages'
 
 import style from './LostForm.module.scss'
+import { useNavigate } from 'react-router-dom'
+import { routes } from '../../../constants/routes'
 
 interface LatLngLiteral {
   lat: number
@@ -31,7 +33,7 @@ interface LatLngLiteral {
 
 export const LostForm: FC = () => {
   const [location, setLocation] = useState<LatLngLiteral | null>(null)
-
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -70,6 +72,7 @@ export const LostForm: FC = () => {
     }
 
     await addLostOrFindPet(data)
+    navigate(routes.CONTENT)
   }
   return (
     <form className={style.container} onSubmit={handleSubmit(onSubmit)}>
