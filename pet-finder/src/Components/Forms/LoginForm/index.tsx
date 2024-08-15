@@ -5,17 +5,14 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { StyledInput } from '../../StyledInput'
 import { StyledButton } from '../../StyledButton'
 
-import { logIn } from '../../../requests/req'
+import { signInFB } from '../../../firebase/auth/auth'
+
 import {
   LoginFormType,
   loginSchema,
 } from '../../../utils/validation/loginFormSchema'
 import { ERROR_MESSAGES } from '../../../constants/errorMessages'
-import { IResponseBodyLogIn } from '../../../requests/interfaces'
-import {
-  exceptionResponse,
-  ExceptionMessage,
-} from '../../../requests/constants'
+import { exceptionResponse } from '../../../requests/constants'
 import { loginFormFields } from '../../../constants/formFields'
 
 export const LoginForm: FC = () => {
@@ -32,17 +29,17 @@ export const LoginForm: FC = () => {
   const onSubmit: SubmitHandler<LoginFormType> = useCallback(
     async ({ email, password }) => {
       try {
-        const response = await logIn({ email, password })
-        if (!response.ok) {
-          const serverMessage =
-            exceptionResponse[response.status as keyof ExceptionMessage]
-          setError('root.serverError', { message: serverMessage })
+        await signInFB(email, password)
+      } catch (error) {
+        if (error instanceof Error && 'code' in error) {
+          switch (error.code) {
+            case 'auth/invalid-credential':
+              setError('root.serverError', { message: exceptionResponse[403] })
+              break
+            default:
+              setError('root.serverError', { message: error.message })
+          }
         } else {
-          const responseBody: IResponseBodyLogIn = await response.json()
-          console.log(responseBody)
-        }
-      } catch (err) {
-        if (err instanceof Error) {
           setError('root.serverError', { message: exceptionResponse[500] })
         }
       }

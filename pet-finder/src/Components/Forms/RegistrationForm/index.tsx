@@ -5,31 +5,20 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { StyledInput } from '../../StyledInput'
 import { StyledButton } from '../../StyledButton'
-import { LocationInput } from '../../LocationInputs'
+
+import { selectUserData } from '../../../store/userData/userDataSlice'
+import { signUpFB } from '../../../firebase/auth/auth'
 
 import { ERROR_MESSAGES } from '../../../constants/errorMessages'
 import {
   RegisterFormType,
   registerSchema,
 } from '../../../utils/validation/registerFormSchema'
-import { logIn, signUp } from '../../../requests/req'
-
 import { registerFormFields } from '../../../constants/formFields'
-import {
-  IRequestBodyLogIn,
-  IResponseBodyLogIn,
-  ResponseBodySignUp,
-} from '../../../requests/interfaces'
 import {
   ExceptionMessage,
   exceptionResponse,
 } from '../../../requests/constants'
-
-import {
-  selectUserData,
-  setUserData,
-} from '../../../store/userData/userDataSlice'
-import { setIsLoggedIn } from '../../../store/userState/userStateSlice'
 
 export const RegistrationForm: FC = () => {
   const dispatch = useDispatch()
@@ -55,29 +44,23 @@ export const RegistrationForm: FC = () => {
   const onSubmit: SubmitHandler<RegisterFormType> = useCallback(
     async (requestBody) => {
       try {
-        const singUpResponse = await signUp(requestBody)
-        if (!singUpResponse.ok) {
-          handleServerError(singUpResponse.status)
-        } else {
-          const response: ResponseBodySignUp = await singUpResponse.json()
-          dispatch(setUserData({ user: response }))
-          console.log(user)
-          const reqBodyLogIn: IRequestBodyLogIn = {
-            email: requestBody.email,
-            password: requestBody.password,
-          }
-          const logInResponse = await logIn(reqBodyLogIn)
-          if (logInResponse.ok) {
-            const { accessToken, refreshToken }: IResponseBodyLogIn =
-              await logInResponse.json()
-            dispatch(setIsLoggedIn(true))
-            localStorage.setItem('refreshToken', refreshToken)
+        const user = await signUpFB(requestBody.email, requestBody.password)
 
-            console.log(accessToken, refreshToken)
+        console.log(user)
+      } catch (error) {
+        if (error instanceof Error && 'code' in error) {
+          const errorCode = error.code
+          console.log(errorCode)
+          switch (errorCode) {
+            case 'auth/email-already-in-use':
+              setError('root.serverError', { message: exceptionResponse[409] })
+              break
+            default:
+              setError('root.serverError', { message: error.message })
           }
+        } else {
+          setError('root.serverError', { message: exceptionResponse[500] })
         }
-      } catch {
-        setError('root.serverError', { message: exceptionResponse[500] })
       }
     },
     [handleServerError, setError, dispatch, user]
@@ -98,7 +81,6 @@ export const RegistrationForm: FC = () => {
           {...register(`${field.name}`)}
         />
       ))}
-      <LocationInput/>
       <StyledButton text="register" type="submit" disabled={!isValid} />
 
       {errors.root?.serverError && <p>{errors.root?.serverError.message}</p>}

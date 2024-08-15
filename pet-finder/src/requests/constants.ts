@@ -1,4 +1,4 @@
-export const baseURL = 'http://localhost:4000/'
+export const baseURL = 'gs://lost-next.appspot.com/'
 
 export enum apiRoutes {
   USERS = 'users',
@@ -17,8 +17,8 @@ export enum httpMethods {
 
 export const exceptionResponse = {
   404: 'User does not exist.',
-  403: 'Password is incorrect.',
+  403: 'This email address is not registered or the password is incorrect.',
   409: 'Email is already used',
-  500: 'Problems on server.',
+  500: 'Server problems.',
 }
 export type ExceptionMessage = typeof exceptionResponse

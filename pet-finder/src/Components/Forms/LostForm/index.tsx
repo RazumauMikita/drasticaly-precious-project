@@ -11,8 +11,10 @@ import {
 import { v4 as uuidv4 } from 'uuid'
 
 import { StyledButton } from '../../StyledButton'
+import FormError from '../../FormError'
 
 import { addLostOrFindPet, ISendLostPet } from '../../../firebase/db/db'
+import { uploadImage } from '../../../requests/imgbb'
 
 import {
   lostFormSchema,
@@ -21,7 +23,8 @@ import {
 import { ERROR_MESSAGES } from '../../../constants/errorMessages'
 
 import style from './LostForm.module.scss'
-import { uploadFile } from '../../../firebase/storage/storage'
+import { useNavigate } from 'react-router-dom'
+import { routes } from '../../../constants/routes'
 
 interface LatLngLiteral {
   lat: number
@@ -30,7 +33,7 @@ interface LatLngLiteral {
 
 export const LostForm: FC = () => {
   const [location, setLocation] = useState<LatLngLiteral | null>(null)
-
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -56,21 +59,20 @@ export const LostForm: FC = () => {
   }) => {
     const fileList = images as FileList
 
-    const fileUploadResult = await uploadFile(fileList[0] as File)
+    const fileUploadResult = await uploadImage(fileList[0] as File)
 
     const data: ISendLostPet = {
       id: uuidv4(),
       createdAt: Date.now(),
       isLost,
       description,
-      images: fileUploadResult.ref.fullPath,
+      images: fileUploadResult.data.image.url,
       lat,
       lng,
     }
 
-    const doc = await addLostOrFindPet(data)
-
-    console.log(doc)
+    await addLostOrFindPet(data)
+    navigate(routes.CONTENT)
   }
   return (
     <form className={style.container} onSubmit={handleSubmit(onSubmit)}>
@@ -90,11 +92,19 @@ export const LostForm: FC = () => {
           rows={6}
           cols={40}
         />
+        {errors.description?.message && (
+          <span className="text-sm text-red-700 font-medium -bottom-6 m-auto">
+            {errors.description?.message}
+          </span>
+        )}
       </div>
 
       <div className={style.inputContainer}>
         <p>Image:</p>
         <input id="images" type="file" {...register('images')} />
+        {errors.images?.message && (
+          <FormError message={errors.images.message} />
+        )}
       </div>
 
       <div className={style.mapContainer}>
@@ -114,16 +124,11 @@ export const LostForm: FC = () => {
             </AdvancedMarker>
           </Map>
         </APIProvider>
+        {errors.lat?.message && <FormError message={errors.lat?.message} />}
       </div>
 
       <StyledButton text="submit" type="submit" />
-      <p>
-        {errors.images?.message}
-        {errors.root?.message}
-        {errors.isLost?.message}
-        {errors.lat?.message}
-        {errors.lng?.message}
-      </p>
+      {errors.root?.message && <FormError message={errors.root.message} />}
     </form>
   )
 }
