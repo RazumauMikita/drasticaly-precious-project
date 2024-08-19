@@ -1,7 +1,7 @@
 import { FC } from 'react'
 
-import style from './HomePage.module.scss'
 import { useNavigate } from 'react-router-dom'
+import style from './HomePage.module.scss'
 import { routes } from '../../constants/routes'
 
 export const HomePage: FC = () => {
@@ -30,9 +30,9 @@ export const HomePage: FC = () => {
           <h2>What is PetFinder?</h2>
           <p>
             PetFinder is a dedicated platform designed to help reunite lost pets
-            with their owners. Whether you've lost a pet or found one, our site
-            provides a simple and effective way to report and search for missing
-            animals.
+            with their owners. Whether you&apos;ve lost a pet or found one, our
+            site provides a simple and effective way to report and search for
+            missing animals.
           </p>
         </div>
 
@@ -45,10 +45,10 @@ export const HomePage: FC = () => {
             keep an eye out for your furry friend.
           </p>
           <p>
-            <strong>Found a Pet:</strong> If you've found a pet wandering alone,
-            you can report it by uploading a photo, marking the location on the
-            map, and adding a description. This increases the chances of the pet
-            being reunited with its owner.
+            <strong>Found a Pet:</strong> If you&apos;ve found a pet wandering
+            alone, you can report it by uploading a photo, marking the location
+            on the map, and adding a description. This increases the chances of
+            the pet being reunited with its owner.
           </p>
         </div>
 
@@ -86,7 +86,7 @@ export const HomePage: FC = () => {
             <li>
               <strong>Search for Pets:</strong> Browse through the reports to
               find your lost pet or see if anyone has reported finding a pet
-              that matches the description of one you've found.
+              that matches the description of one you&apos;ve found.
             </li>
             <li>
               <strong>Get Notified:</strong> Receive notifications about new

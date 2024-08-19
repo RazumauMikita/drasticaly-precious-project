@@ -10,6 +10,7 @@ import {
 } from '@vis.gl/react-google-maps'
 import { v4 as uuidv4 } from 'uuid'
 
+import { useNavigate } from 'react-router-dom'
 import { StyledButton } from '../../StyledButton'
 import FormError from '../../FormError'
 
@@ -23,7 +24,6 @@ import {
 import { ERROR_MESSAGES } from '../../../constants/errorMessages'
 
 import style from './LostForm.module.scss'
-import { useNavigate } from 'react-router-dom'
 import { routes } from '../../../constants/routes'
 
 interface LatLngLiteral {

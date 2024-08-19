@@ -1,6 +1,7 @@
 import { FC, useCallback, useEffect, useState } from 'react'
 import { Map, useMap } from '@vis.gl/react-google-maps'
 
+import { useSearchParams } from 'react-router-dom'
 import { Point, PointMarker } from '../PointMarker'
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks/hooks'
@@ -8,7 +9,6 @@ import { getLocations } from '../../utils/getLocations'
 import { setShownPets } from '../../store/petData/petDataSlice'
 
 import style from './MapComponent.module.scss'
-import { useSearchParams } from 'react-router-dom'
 
 export const MapComponent: FC = () => {
   const map = useMap()
@@ -32,6 +32,7 @@ export const MapComponent: FC = () => {
 
   const onZoomChange = useCallback(() => {
     if (!map) return
+
     const bounds = map.getBounds()
     const queryParams = new URLSearchParams({
       z: map.getZoom()?.toString() || '10',
@@ -45,8 +46,6 @@ export const MapComponent: FC = () => {
     )
     dispatch(setShownPets(visibleMarkersIds))
   }, [map, locations, dispatch])
-
-  //console.log(map?.getCenter()?.lat().toString())
 
   useEffect(() => {
     const getLocation = () => {
