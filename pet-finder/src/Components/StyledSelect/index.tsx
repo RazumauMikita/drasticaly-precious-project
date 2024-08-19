@@ -6,9 +6,7 @@ import { Language } from '../../types/data.type'
 
 import style from './StyledSelect.module.scss'
 
-interface StyledSelectProps {}
-
-export const StyledSelect: FC<StyledSelectProps> = () => {
+export const StyledSelect: FC = () => {
   const [, setLang] = useState<Language>('EN')
   const handleOnChangeSelect = (event: ChangeEvent<HTMLSelectElement>) => {
     const { value } = event.target as HTMLSelectElement

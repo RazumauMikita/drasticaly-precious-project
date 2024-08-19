@@ -1,0 +1,24 @@
+export const baseURL = 'gs://lost-next.appspot.com/'
+
+export enum apiRoutes {
+  USERS = 'users',
+  LOGIN = 'auth/login',
+  SIGNUP = 'auth/signup',
+  REFRESH = 'auth/refresh',
+  LOST = 'lost',
+}
+
+export enum httpMethods {
+  GET = 'GET',
+  POST = 'POST',
+  PUT = 'PUT',
+  DELETE = 'DELETE',
+}
+
+export const exceptionResponse = {
+  404: 'User does not exist.',
+  403: 'This email address is not registered or the password is incorrect.',
+  409: 'Email is already used',
+  500: 'Server problems.',
+}
+export type ExceptionMessage = typeof exceptionResponse
